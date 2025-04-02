@@ -16,7 +16,7 @@ var host = builder.ConfigureAppConfiguration((context, config) =>
     })
     .ConfigureServices((context, collection) =>
     {
-        collection.ConfigureDependencies(context.Configuration);
+        collection.ConfigureSynologyApiSdkDependencies(context.Configuration);
     })
     .Build();
 

@@ -5,7 +5,7 @@ namespace Synology.Api.Sdk.Config;
 
 public static class SdkConfigurationExtensions
 {
-    public static IServiceCollection ConfigureDependencies(
+    public static IServiceCollection ConfigureSynologyApiSdkDependencies(
         this IServiceCollection services,
         IConfiguration configuration
     )
