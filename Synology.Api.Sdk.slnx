@@ -1,0 +1,5 @@
+﻿<Solution>
+  <Project Path="src\Synology.Api.Sdk\Synology.Api.Sdk.csproj" Type="Classic C#" />
+  <Project Path="src\Synology.Api.ConsumerSample\Synology.Api.ConsumerSample.csproj" Type="Classic C#" />
+  <Project Path="tests\Synology.Api.Sdk.Tests\Synology.Api.Sdk.Tests.csproj" Type="Classic C#" />
+</Solution>
