@@ -27,7 +27,7 @@ var host = builder.ConfigureAppConfiguration((context, configBuilder) =>
 var services = host.Services;
 var configuration = services.GetRequiredService<IConfiguration>();
 
-var request = new RequestBuilder(services.GetRequiredService<IOptions<UriBase>>());
+var request = services.GetRequiredService<IRequestBuilder>();
 var synoApiService = services.GetRequiredService<ISynologyApiService>();
 
 // ------ ApiInfo

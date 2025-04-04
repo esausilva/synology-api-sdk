@@ -6,7 +6,7 @@ using Synology.Api.Sdk.SynologyApi.Shared.Request;
 
 namespace Synology.Api.Sdk.SynologyApi;
 
-public sealed class RequestBuilder(IOptions<UriBase> uriBase)
+internal sealed class RequestBuilder(IOptions<UriBase> uriBase) : IRequestBuilder
 {
     private readonly UriBase _uriBase = uriBase.Value;
 
