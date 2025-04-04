@@ -22,7 +22,7 @@ public static class SdkConfigurationExtensions
             .AddHttpClient(SynologyApiHttpClient)
             .AddStandardResilienceHandler();
 
-        services.AddTransient<IRequestBuilder, RequestBuilder>();
+        services.AddTransient<ISynologyApiRequestBuilder, SynologyApiRequestBuilder>();
         services.AddTransient<ISynologyApiService, SynologyApiService>();
         
         return services;

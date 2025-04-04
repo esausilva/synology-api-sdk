@@ -27,7 +27,7 @@ var host = builder.ConfigureAppConfiguration((context, configBuilder) =>
 var services = host.Services;
 var configuration = services.GetRequiredService<IConfiguration>();
 
-var request = services.GetRequiredService<IRequestBuilder>();
+var synoApiRequestBuilder = services.GetRequiredService<ISynologyApiRequestBuilder>();
 var synoApiService = services.GetRequiredService<ISynologyApiService>();
 
 // ------ ApiInfo
@@ -35,7 +35,7 @@ var apiInfoRequest = new ApiInfoRequest(
     api: SynologyApis.ApiInfo,
     method: "query",
     version: 1);
-var apiInfoUrl = request.BuildUrl(apiInfoRequest);
+var apiInfoUrl = synoApiRequestBuilder.BuildUrl(apiInfoRequest);
 var apiInfoResponse = await synoApiService.GetAsync<ApiInfoResponse>(apiInfoUrl);
 
 Console.WriteLine(apiInfoUrl);
@@ -48,7 +48,7 @@ var loginRequest = new LoginRequest(
     version: 6,
     account: configuration["User:Account"]!,
     password: configuration["User:Password"]!);
-var loginUrl = request.BuildUrl(loginRequest);
+var loginUrl = synoApiRequestBuilder.BuildUrl(loginRequest);
 var loginResponse = await synoApiService.GetAsync<LoginResponse>(loginUrl);
 
 Console.WriteLine(loginUrl);
@@ -60,7 +60,7 @@ var logoutRequest = new LogoutRequest(
     method: "logout",
     version: 6,
     sid: loginResponse.Data.Sid);
-var logoutUrl = request.BuildUrl(logoutRequest);
+var logoutUrl = synoApiRequestBuilder.BuildUrl(logoutRequest);
 var logoutResponse = await synoApiService.GetAsync<LogoutResponse>(logoutUrl);
 
 Console.WriteLine(logoutUrl);
