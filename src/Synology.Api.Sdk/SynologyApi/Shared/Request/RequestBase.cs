@@ -1,7 +1,7 @@
 using System.Text.Json.Serialization;
 using Synology.Api.Sdk.Extensions;
 
-namespace Synology.Api.Sdk.SynologyApi;
+namespace Synology.Api.Sdk.SynologyApi.Shared.Request;
 
 public class RequestBase
 {

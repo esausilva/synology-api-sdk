@@ -1,4 +1,5 @@
 using System.Text.Json.Serialization;
+using Synology.Api.Sdk.SynologyApi.Shared.Request;
 
 namespace Synology.Api.Sdk.SynologyApi.Auth.Request;
 
@@ -9,8 +10,6 @@ public sealed class LogoutRequest : RequestBase
 
     public LogoutRequest(string api, string method, int version, string sid) : base(api, version, method)
     {
-        ArgumentException.ThrowIfNullOrWhiteSpace(sid, nameof(sid));
-        
         Sid = sid;
     }
 }

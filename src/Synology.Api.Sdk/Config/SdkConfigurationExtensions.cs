@@ -1,5 +1,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Synology.Api.Sdk.SynologyApi;
+using static Synology.Api.Sdk.Constants.SdkConstants;
 
 namespace Synology.Api.Sdk.Config;
 
@@ -10,10 +12,17 @@ public static class SdkConfigurationExtensions
         IConfiguration configuration
     )
     {
-        services.AddOptions<UriBase>()
+        services
+            .AddOptions<UriBase>()
             .Bind(configuration.GetSection(nameof(UriBase)))
             .ValidateDataAnnotations()
             .ValidateOnStart();
+
+        services
+            .AddHttpClient(SynologyApiHttpClient)
+            .AddStandardResilienceHandler();
+
+        services.AddTransient<ISynologyApiService, SynologyApiService>();
         
         return services;
     }

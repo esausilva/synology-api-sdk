@@ -1,4 +1,5 @@
 using System.Text.Json.Serialization;
+using Synology.Api.Sdk.SynologyApi.Shared.Request;
 
 namespace Synology.Api.Sdk.SynologyApi.Auth.Request;
 

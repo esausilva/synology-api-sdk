@@ -2,10 +2,11 @@ using System.Text.Json.Serialization;
 using Microsoft.Extensions.Options;
 using Synology.Api.Sdk.Config;
 using Synology.Api.Sdk.Extensions;
+using Synology.Api.Sdk.SynologyApi.Shared.Request;
 
 namespace Synology.Api.Sdk.SynologyApi;
 
-public sealed class BuildRequest(IOptions<UriBase> uriBase)
+public sealed class RequestBuilder(IOptions<UriBase> uriBase)
 {
     private readonly UriBase _uriBase = uriBase.Value;
 
