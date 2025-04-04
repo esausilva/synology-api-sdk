@@ -2,7 +2,6 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Options;
 using Synology.Api.Sdk.Config;
 using Synology.Api.Sdk.Constants;
 using Synology.Api.Sdk.SynologyApi;
