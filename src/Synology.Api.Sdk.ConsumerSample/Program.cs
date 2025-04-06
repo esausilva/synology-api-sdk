@@ -28,6 +28,7 @@ var configuration = services.GetRequiredService<IConfiguration>();
 
 var synoApiRequestBuilder = services.GetRequiredService<ISynologyApiRequestBuilder>();
 var synoApiService = services.GetRequiredService<ISynologyApiService>();
+var cancellationToken = GenerateCancellationToken();
 
 // ------ ApiInfo
 var apiInfoRequest = new ApiInfoRequest(
@@ -35,7 +36,7 @@ var apiInfoRequest = new ApiInfoRequest(
     method: "query",
     version: 1);
 var apiInfoUrl = synoApiRequestBuilder.BuildUrl(apiInfoRequest);
-var apiInfoResponse = await synoApiService.GetAsync<ApiInfoResponse>(apiInfoUrl);
+var apiInfoResponse = await synoApiService.GetAsync<ApiInfoResponse>(apiInfoUrl, cancellationToken);
 
 Console.WriteLine(apiInfoUrl);
 Console.WriteLine(SerializeResponse(apiInfoResponse));
@@ -48,7 +49,7 @@ var loginRequest = new LoginRequest(
     account: configuration["User:Account"]!,
     password: configuration["User:Password"]!);
 var loginUrl = synoApiRequestBuilder.BuildUrl(loginRequest);
-var loginResponse = await synoApiService.GetAsync<LoginResponse>(loginUrl);
+var loginResponse = await synoApiService.GetAsync<LoginResponse>(loginUrl, cancellationToken);
 
 Console.WriteLine(loginUrl);
 Console.WriteLine(SerializeResponse(loginResponse));
@@ -60,7 +61,7 @@ var logoutRequest = new LogoutRequest(
     version: 6,
     sid: loginResponse.Data.Sid);
 var logoutUrl = synoApiRequestBuilder.BuildUrl(logoutRequest);
-var logoutResponse = await synoApiService.GetAsync<LogoutResponse>(logoutUrl);
+var logoutResponse = await synoApiService.GetAsync<LogoutResponse>(logoutUrl, cancellationToken);
 
 Console.WriteLine(logoutUrl);
 Console.WriteLine(SerializeResponse(logoutResponse));
@@ -72,4 +73,10 @@ return;
 static string SerializeResponse<T>(T response) where T : class
 {
     return JsonSerializer.Serialize(response, new JsonSerializerOptions { WriteIndented = true });
+}
+
+static CancellationToken GenerateCancellationToken()
+{
+    var cancellationTokenSource = new CancellationTokenSource();
+    return cancellationTokenSource.Token;
 }

@@ -3,11 +3,10 @@ using Synology.Api.Sdk.SynologyApi.Shared.Response;
 
 namespace Synology.Api.Sdk.SynologyApi.Auth.Response;
 
-public sealed class LoginResponse
+public sealed class LoginResponse : ResponseBase
 {
     public DataDetail Data { get; init; } = new();
     public bool Success { get; init; }
-    public ErrorResponse? Error { get; init; }
 }
 
 public sealed class DataDetail

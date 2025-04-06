@@ -1,4 +1,5 @@
 using System.Text.Json;
+using Synology.Api.Sdk.SynologyApi.Shared.Response;
 using static Synology.Api.Sdk.Constants.SdkConstants;
 
 namespace Synology.Api.Sdk.SynologyApi;
@@ -12,16 +13,18 @@ internal sealed class SynologyApiService : ISynologyApiService
         _httpClientFactoryFactory = httpClientFactory;
     }
 
-    public async Task<T> GetAsync<T>(string url) where T : class
+    public async Task<T> GetAsync<T>(string url, CancellationToken cancellationToken = default) where T : ResponseBase
     {
-        using var client = _httpClientFactoryFactory.CreateClient(SynologyApiHttpClient);
-        var response = await client.GetAsync(url);
+        ArgumentException.ThrowIfNullOrWhiteSpace(url);
         
-        response.EnsureSuccessStatusCode();
-
-        var responseData = await response.Content.ReadAsStringAsync();
+        using var client = _httpClientFactoryFactory.CreateClient(SynologyApiHttpClient);
+        var response = await client.GetAsync(url, cancellationToken);
+        
+        var responseData = await response.Content.ReadAsStringAsync(cancellationToken);
         var deserialize = JsonSerializer.Deserialize<T>(responseData, 
             new JsonSerializerOptions { PropertyNameCaseInsensitive = true })!;
+        
+        deserialize.GetType().GetProperty("StatusCode")?.SetValue(deserialize, response.StatusCode);
         
         return deserialize;
     }

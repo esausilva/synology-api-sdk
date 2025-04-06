@@ -14,6 +14,26 @@ public sealed class LoginRequest : RequestBase
     [JsonPropertyName("enable_syno_token")]
     public string EnableSynoToken { get; }
 
+    /// <summary>
+    /// Represents a request to authenticate to Synology NAS.
+    /// <br/><br/>
+    /// <b>Target API</b>: SYNO.API.Auth
+    /// </summary>
+    /// <exception cref="ArgumentException">
+    /// Thrown if the <paramref name="api"/> parameter is <c>null</c> or white space.
+    /// </exception>
+    /// <exception cref="ArgumentException">
+    /// Thrown if the <paramref name="version"/> parameter is zero or negative.
+    /// </exception>
+    /// <exception cref="ArgumentException">
+    /// Thrown if the <paramref name="method"/> parameter is <c>null</c> or white space.
+    /// </exception>
+    /// <exception cref="ArgumentException">
+    /// Thrown if the <paramref name="account"/> parameter is <c>null</c> or white space.
+    /// </exception>
+    /// <exception cref="ArgumentException">
+    /// Thrown if the <paramref name="password"/> parameter is <c>null</c> or white space.
+    /// </exception>
     public LoginRequest(string api, string method, int version, string account, 
         string password, string enableSynoToken = "yes") : base(api, version, method)
     {

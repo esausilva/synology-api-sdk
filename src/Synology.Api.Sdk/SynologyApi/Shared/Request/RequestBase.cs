@@ -17,6 +17,18 @@ public class RequestBase
     [JsonPropertyName("method")]
     public string Method { get; }
 
+    /// <summary>
+    /// Base class for a Synology API Request
+    /// </summary>
+    /// <exception cref="ArgumentException">
+    /// Thrown if the <paramref name="api"/> parameter is <c>null</c> or white space.
+    /// </exception>
+    /// <exception cref="ArgumentException">
+    /// Thrown if the <paramref name="version"/> parameter is zero or negative.
+    /// </exception>
+    /// <exception cref="ArgumentException">
+    /// Thrown if the <paramref name="method"/> parameter is <c>null</c> or white space.
+    /// </exception>
     protected RequestBase(string api, int version, string method)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(api, nameof(api));

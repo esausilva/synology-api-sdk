@@ -3,53 +3,52 @@ using Synology.Api.Sdk.SynologyApi.Shared.Response;
 
 namespace Synology.Api.Sdk.SynologyApi.ApiInfo.Response;
 
-public sealed class ApiInfoResponse
+public sealed class ApiInfoResponse : ResponseBase
 {
-    public ApiData Data { get; init; } = new();
+    public ApiInfoData Data { get; init; } = new();
     public bool Success { get; init; }
-    public ErrorResponse? Error { get; init; }
 }
 
-public sealed class ApiData
+public sealed class ApiInfoData
 {
     [JsonPropertyName("SYNO.API.Auth")]
-    public ApiDetails SynoApiAuth { get; init; } = new();
+    public ApiInfoDetails SynoApiAuth { get; init; } = new();
 
     [JsonPropertyName("SYNO.FileStation.List")]
-    public ApiDetails SynoFileStationList { get; init; } = new();
+    public ApiInfoDetails SynoFileStationList { get; init; } = new();
     
     [JsonPropertyName("SYNO.FileStation.Download")]
-    public ApiDetails SynoFileStationDownload { get; init; } = new();
+    public ApiInfoDetails SynoFileStationDownload { get; init; } = new();
     
     [JsonPropertyName("SYNO.FileStation.Search")]
-    public ApiDetails SynoFileStationSearch { get; init; } = new();
+    public ApiInfoDetails SynoFileStationSearch { get; init; } = new();
     
     [JsonPropertyName("SYNO.Foto.Browse.Album")]
-    public ApiDetails SynoFotoBrowseAlbum { get; init; } = new();
+    public ApiInfoDetails SynoFotoBrowseAlbum { get; init; } = new();
     
     [JsonPropertyName("SYNO.FotoTeam.Browse.Folder")]
-    public ApiDetails SynoFotoTeamBrowseFolder { get; init; } = new();
+    public ApiInfoDetails SynoFotoTeamBrowseFolder { get; init; } = new();
     
     [JsonPropertyName("SYNO.FotoTeam.Browse.Item")]
-    public ApiDetails SynoFotoTeamBrowseItem { get; init; } = new();
+    public ApiInfoDetails SynoFotoTeamBrowseItem { get; init; } = new();
     
     [JsonPropertyName("SYNO.FotoTeam.Browse.RecentlyAdded")]
-    public ApiDetails SynoFotoTeamBrowseRecentlyAdded { get; init; } = new();
+    public ApiInfoDetails SynoFotoTeamBrowseRecentlyAdded { get; init; } = new();
     
     [JsonPropertyName("SYNO.FotoTeam.Download")]
-    public ApiDetails SynoFotoTeamDownload { get; init; } = new();
+    public ApiInfoDetails SynoFotoTeamDownload { get; init; } = new();
     
     [JsonPropertyName("SYNO.FotoTeam.Thumbnail")]
-    public ApiDetails SynoFotoTeamThumbnail { get; init; } = new();
+    public ApiInfoDetails SynoFotoTeamThumbnail { get; init; } = new();
     
     [JsonPropertyName("SYNO.FotoTeam.Search.Search")]
-    public ApiDetails SynoFotoTeamSearchSearch { get; init; } = new();
+    public ApiInfoDetails SynoFotoTeamSearchSearch { get; init; } = new();
     
     [JsonPropertyName("SYNO.FotoTeam.Browse.Timeline")]
-    public ApiDetails SynoFotoTeamBrowseTimeline { get; init; } = new();
+    public ApiInfoDetails SynoFotoTeamBrowseTimeline { get; init; } = new();
 }
 
-public sealed class ApiDetails
+public sealed class ApiInfoDetails
 {
     public int MaxVersion { get; init; }
     public int MinVersion { get; init; }
