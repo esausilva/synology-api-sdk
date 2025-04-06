@@ -1,4 +1,5 @@
 using System.Text.Json.Serialization;
+using Synology.Api.Sdk.Constants;
 using Synology.Api.Sdk.SynologyApi.Shared.Request;
 
 namespace Synology.Api.Sdk.SynologyApi.Auth.Request;
@@ -22,7 +23,7 @@ public sealed class LogoutRequest : RequestBase
     /// <exception cref="ArgumentException">
     /// Thrown if the <paramref name="method"/> parameter is <c>null</c> or white space.
     /// </exception>
-    public LogoutRequest(string api, string method, int version, string sid = "") : base(api, version, method)
+    public LogoutRequest(string method, int version, string sid = "") : base(SynologyApis.ApiAuth, version, method)
     {
         Sid = sid;
     }

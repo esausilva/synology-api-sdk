@@ -11,7 +11,6 @@
       <Folder Include="SynologyApi\FileStation\" />
       <Folder Include="SynologyApi\FotoTeam\" />
       <Folder Include="SynologyApi\Foto\" />
-      <Folder Include="SynologyApi\ApiInfo\Response\" />
     </ItemGroup>
 
     <ItemGroup>

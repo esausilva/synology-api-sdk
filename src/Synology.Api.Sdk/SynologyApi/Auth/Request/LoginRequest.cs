@@ -1,4 +1,5 @@
 using System.Text.Json.Serialization;
+using Synology.Api.Sdk.Constants;
 using Synology.Api.Sdk.SynologyApi.Shared.Request;
 
 namespace Synology.Api.Sdk.SynologyApi.Auth.Request;
@@ -20,9 +21,6 @@ public sealed class LoginRequest : RequestBase
     /// <b>Target API</b>: SYNO.API.Auth
     /// </summary>
     /// <exception cref="ArgumentException">
-    /// Thrown if the <paramref name="api"/> parameter is <c>null</c> or white space.
-    /// </exception>
-    /// <exception cref="ArgumentException">
     /// Thrown if the <paramref name="version"/> parameter is zero or negative.
     /// </exception>
     /// <exception cref="ArgumentException">
@@ -34,8 +32,8 @@ public sealed class LoginRequest : RequestBase
     /// <exception cref="ArgumentException">
     /// Thrown if the <paramref name="password"/> parameter is <c>null</c> or white space.
     /// </exception>
-    public LoginRequest(string api, string method, int version, string account, 
-        string password, string enableSynoToken = "yes") : base(api, version, method)
+    public LoginRequest(string method, int version, string account, string password, string enableSynoToken = "yes") 
+        : base(SynologyApis.ApiAuth, version, method)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(account, nameof(account));
         ArgumentException.ThrowIfNullOrWhiteSpace(password, nameof(password));

@@ -3,7 +3,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Synology.Api.Sdk.Config;
-using Synology.Api.Sdk.Constants;
 using Synology.Api.Sdk.SynologyApi;
 using Synology.Api.Sdk.SynologyApi.ApiInfo.Request;
 using Synology.Api.Sdk.SynologyApi.ApiInfo.Response;
@@ -32,7 +31,6 @@ var cancellationToken = GenerateCancellationToken();
 
 // ------ ApiInfo
 var apiInfoRequest = new ApiInfoRequest(
-    api: SynologyApis.ApiInfo,
     method: "query",
     version: 1);
 var apiInfoUrl = synoApiRequestBuilder.BuildUrl(apiInfoRequest);
@@ -43,7 +41,6 @@ Console.WriteLine(SerializeResponse(apiInfoResponse));
 
 // ------ ApiAuth - Login
 var loginRequest = new LoginRequest(
-    api: SynologyApis.ApiAuth,
     method: "login",
     version: 6,
     account: configuration["User:Account"]!,
@@ -56,7 +53,6 @@ Console.WriteLine(SerializeResponse(loginResponse));
 
 // ------ ApiAuth - Logout
 var logoutRequest = new LogoutRequest(
-    api: SynologyApis.ApiAuth,
     method: "logout",
     version: 6,
     sid: loginResponse.Data.Sid);
