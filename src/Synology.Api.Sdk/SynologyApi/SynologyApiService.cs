@@ -18,8 +18,8 @@ internal sealed class SynologyApiService : ISynologyApiService
         ArgumentException.ThrowIfNullOrWhiteSpace(url);
         
         using var client = _httpClientFactoryFactory.CreateClient(SynologyApiHttpClient);
+
         var response = await client.GetAsync(url, cancellationToken);
-        
         var responseData = await response.Content.ReadAsStringAsync(cancellationToken);
         var deserialize = JsonSerializer.Deserialize<T>(responseData, 
             new JsonSerializerOptions { PropertyNameCaseInsensitive = true })!;

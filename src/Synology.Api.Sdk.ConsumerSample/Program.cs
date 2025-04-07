@@ -8,6 +8,7 @@ using Synology.Api.Sdk.SynologyApi.ApiInfo.Request;
 using Synology.Api.Sdk.SynologyApi.ApiInfo.Response;
 using Synology.Api.Sdk.SynologyApi.Auth.Request;
 using Synology.Api.Sdk.SynologyApi.Auth.Response;
+using Synology.Api.Sdk.SynologyApi.Foto.Request;
 
 var builder = Host.CreateDefaultBuilder(args);
 
@@ -50,6 +51,19 @@ var loginResponse = await synoApiService.GetAsync<LoginResponse>(loginUrl, cance
 
 Console.WriteLine(loginUrl);
 Console.WriteLine(SerializeResponse(loginResponse));
+
+// ------ Foto.Browse.Album
+var fotoBrowseAlbumRequest = new FotoBrowseAlbumRequest(
+    version: 5,
+    method: "list",
+    offset: 0,
+    limit: 10,
+    synoToken: loginResponse.Data.SynoToken!);
+var fotoBrowseAlbumUrl = synoApiRequestBuilder.BuildUrl(fotoBrowseAlbumRequest);
+var fotoBrowseAlbumResponse = await synoApiService.GetAsync<FotoBrowseAlbumResponse>(fotoBrowseAlbumUrl, cancellationToken);
+
+Console.WriteLine(fotoBrowseAlbumUrl);
+Console.WriteLine(SerializeResponse(fotoBrowseAlbumResponse));
 
 // ------ ApiAuth - Logout
 var logoutRequest = new LogoutRequest(

@@ -1,3 +1,7 @@
 namespace Synology.Api.Sdk.SynologyApi.Shared.Response;
 
-public sealed record ErrorResponse(int Code);
+public sealed class ErrorResponse
+{
+    public int Code { get; init; }
+    public ErrorDetails Errors { get; init; } = new();
+}
