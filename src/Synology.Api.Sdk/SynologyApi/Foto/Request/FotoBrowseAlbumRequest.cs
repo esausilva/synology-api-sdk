@@ -17,7 +17,7 @@ public sealed class FotoBrowseAlbumRequest : RequestBase
     public string SynoToken { get; }
     
     /// <summary>
-    /// Represents a request to get a list of albums in your personal space.
+    /// Represents a request to retrieve a list of albums in your Personal Space.
     /// <br/><br/>
     /// <b>Target API</b>: SYNO.Foto.Browse.Album   
     /// </summary>

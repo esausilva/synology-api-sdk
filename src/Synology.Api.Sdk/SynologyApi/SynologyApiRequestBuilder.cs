@@ -25,8 +25,8 @@ internal sealed class SynologyApiRequestBuilder(IOptions<UriBase> uriBase) : ISy
             
             var jsonPropertyName = jsonPropertyNameAttribute.Name;
             var propertyValue = property.GetValue(request);
-            var encodedPropertyValue = EncodeUrl(propertyValue?.ToString() ?? string.Empty);
-            
+            var encodedPropertyValue = GetEncodedPropertyValue(propertyValue);
+
             parameters.Add(jsonPropertyName, encodedPropertyValue);
         }
         
@@ -38,9 +38,36 @@ internal sealed class SynologyApiRequestBuilder(IOptions<UriBase> uriBase) : ISy
         
         return $"{scheme}://{_uriBase.ServerIpOrHostname}{port}/webapi/{request.Path}?{queryString}";
     }
-    
+
+    private static string GetEncodedPropertyValue(object? propertyValue)
+    {
+        string encodedPropertyValue;
+        
+        if (IsEnumerable(propertyValue) && propertyValue is IEnumerable<string> stringValues)
+        {
+            encodedPropertyValue = ConvertToJsonArray(stringValues);
+        }
+        else
+        {
+            encodedPropertyValue = EncodeUrl(propertyValue?.ToString() ?? string.Empty);
+        }
+        
+        return encodedPropertyValue;
+    }
+
+    private static bool IsEnumerable(object? value) => value is IEnumerable<object> && value?.GetType() != typeof(string);
+
+    private static string ConvertToJsonArray(IEnumerable<string> values)
+    {
+        var jsonArray = values
+            .Select(EncodeUrl)
+            .Aggregate("[", (current, param) => current + $"\"{param}\",");
+        
+        return jsonArray.TrimEnd(',') + "]";
+    }
+
+    private static string EncodeUrl(string url) => Uri.EscapeDataString(url);
+
     private static string BuildQueryString(IReadOnlyDictionary<string, string> parameters) => 
         string.Join("&", parameters.Select(x => $"{x.Key}={x.Value}"));
-    
-    private static string EncodeUrl(string url) => Uri.EscapeDataString(url);
 }

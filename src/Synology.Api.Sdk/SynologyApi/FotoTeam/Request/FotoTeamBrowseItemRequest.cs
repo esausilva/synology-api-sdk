@@ -5,7 +5,7 @@ using Synology.Api.Sdk.SynologyApi.Shared.Request;
 
 namespace Synology.Api.Sdk.SynologyApi.FotoTeam.Request;
 
-public sealed class FotoTeamBrowseFolderRequest : RequestBase
+public sealed class FotoTeamBrowseItemRequest : RequestBase
 {
     [JsonPropertyName("SynoToken")]
     public string SynoToken { get; }
@@ -16,13 +16,16 @@ public sealed class FotoTeamBrowseFolderRequest : RequestBase
     [JsonPropertyName("limit")]
     public int Limit { get; }
 
-    [JsonPropertyName("id")]
-    public int? Id { get; }
+    [JsonPropertyName("folder_id")]
+    public int? FolderId { get; }
+
+    [JsonPropertyName("additional")]
+    public IReadOnlyList<string>? Additional { get; }
     
     /// <summary>
-    /// Represents a request to retrieve a list of folders in the Shared Space.
+    /// Represents a request to retrieve a list of items within a folder in the Shared Space.
     /// <br/><br/>
-    /// <b>Target API</b>: SYNO.FotoTeam.Browse.Folder
+    /// <b>Target API</b>: SYNO.FotoTeam.Browse.Item
     /// </summary>
     /// <exception cref="ArgumentException">
     /// Thrown if the <paramref name="version"/> parameter is zero or negative.
@@ -40,20 +43,21 @@ public sealed class FotoTeamBrowseFolderRequest : RequestBase
     /// Thrown if the <paramref name="limit"/> parameter is negative.
     /// </exception>
     /// <exception cref="ArgumentException">
-    /// Thrown if the <paramref name="id"/> parameter is negative.
+    /// Thrown if the <paramref name="folderId"/> parameter is negative.
     /// </exception>
-    public FotoTeamBrowseFolderRequest(int version, string method, string synoToken, int offset = 0, 
-        int limit = 100, int? id = null)
-        : base(SynologyApis.FotoTeamBrowseFolder, version, method)
+    public FotoTeamBrowseItemRequest(int version, string method, string synoToken, int offset, 
+        int limit, int? folderId = null, IReadOnlyList<string>? additional = null)
+        : base(SynologyApis.FotoTeamBrowseItem, version, method)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(synoToken, nameof(synoToken));
         offset.ThrowIfNegative(nameof(offset));
         limit.ThrowIfNegative(nameof(limit));
-        id?.ThrowIfNegative(nameof(id));
+        folderId?.ThrowIfNegative(nameof(folderId));
 
         SynoToken = synoToken;
         Offset = offset;
         Limit = limit;
-        Id = id;
+        FolderId = folderId;
+        Additional = additional;
     }
 }
