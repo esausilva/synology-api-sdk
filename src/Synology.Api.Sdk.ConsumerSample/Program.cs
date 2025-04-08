@@ -43,7 +43,7 @@ Console.WriteLine(SerializeResponse(apiInfoResponse));
 // ------ ApiAuth - Login
 var loginRequest = new LoginRequest(
     method: "login",
-    version: 6,
+    version: apiInfoResponse.Data.SynoApiAuth.MaxVersion,
     account: configuration["User:Account"]!,
     password: configuration["User:Password"]!);
 var loginUrl = synoApiRequestBuilder.BuildUrl(loginRequest);
@@ -54,7 +54,7 @@ Console.WriteLine(SerializeResponse(loginResponse));
 
 // ------ Foto.Browse.Album
 var fotoBrowseAlbumRequest = new FotoBrowseAlbumRequest(
-    version: 5,
+    version: apiInfoResponse.Data.SynoFotoBrowseAlbum.MaxVersion,
     method: "list",
     offset: 0,
     limit: 10,
@@ -68,7 +68,7 @@ Console.WriteLine(SerializeResponse(fotoBrowseAlbumResponse));
 // ------ ApiAuth - Logout
 var logoutRequest = new LogoutRequest(
     method: "logout",
-    version: 6,
+    version: apiInfoResponse.Data.SynoApiAuth.MaxVersion,
     sid: loginResponse.Data.Sid);
 var logoutUrl = synoApiRequestBuilder.BuildUrl(logoutRequest);
 var logoutResponse = await synoApiService.GetAsync<LogoutResponse>(logoutUrl, cancellationToken);
