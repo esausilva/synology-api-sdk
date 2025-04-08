@@ -9,7 +9,6 @@
 
     <ItemGroup>
       <Folder Include="SynologyApi\FileStation\" />
-      <Folder Include="SynologyApi\FotoTeam\" />
     </ItemGroup>
 
     <ItemGroup>

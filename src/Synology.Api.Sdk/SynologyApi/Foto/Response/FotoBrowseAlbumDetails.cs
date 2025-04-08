@@ -1,5 +1,7 @@
 using System.Text.Json.Serialization;
 
+namespace Synology.Api.Sdk.SynologyApi.Foto.Response;
+
 public sealed class FotoBrowseAlbumDetails
 {
     public int Id { get; init; }

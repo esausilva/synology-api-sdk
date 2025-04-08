@@ -1,5 +1,7 @@
 using System.Text.Json.Serialization;
 
+namespace Synology.Api.Sdk.SynologyApi.FotoTeam.Response;
+
 public sealed class FotoTeamBrowseFolderDetails
 {
     public int Id { get; set; }

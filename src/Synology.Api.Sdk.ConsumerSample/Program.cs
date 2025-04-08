@@ -9,6 +9,7 @@ using Synology.Api.Sdk.SynologyApi.ApiInfo.Response;
 using Synology.Api.Sdk.SynologyApi.Auth.Request;
 using Synology.Api.Sdk.SynologyApi.Auth.Response;
 using Synology.Api.Sdk.SynologyApi.Foto.Request;
+using Synology.Api.Sdk.SynologyApi.Foto.Response;
 
 var builder = Host.CreateDefaultBuilder(args);
 

@@ -3,7 +3,7 @@ using Synology.Api.Sdk.Constants;
 using Synology.Api.Sdk.Extensions;
 using Synology.Api.Sdk.SynologyApi.Shared.Request;
 
-namespace Synology.Api.Sdk.SynologyApi.Foto.Request;
+namespace Synology.Api.Sdk.SynologyApi.FotoTeam.Request;
 
 public sealed class FotoTeamBrowseFolderRequest : RequestBase
 {
