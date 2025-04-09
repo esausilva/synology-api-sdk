@@ -1,7 +1,7 @@
 namespace Synology.Api.Sdk.SynologyApi.FotoTeam.Response;
 
-public sealed class FotoTeamBrowseItemAdditional
+public sealed class FotoTeamItemAdditional
 {
-    public ThumbnailDetails Thumbnail { get; init; } = new();
+    public ThumbnailDetails? Thumbnail { get; init; }
     public string Folder { get; init; } = string.Empty;
 }

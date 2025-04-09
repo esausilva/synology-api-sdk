@@ -13,10 +13,9 @@ public static class SdkConfigurationExtensions
     )
     {
         services
-            .AddOptions<UriBase>()
-            .Bind(configuration.GetSection(nameof(UriBase)))
+            .AddOptionsWithValidateOnStart<UriBase>()
             .ValidateDataAnnotations()
-            .ValidateOnStart();
+            .Bind(configuration.GetSection(nameof(UriBase)));
 
         services
             .AddHttpClient(SynologyApiHttpClient)
