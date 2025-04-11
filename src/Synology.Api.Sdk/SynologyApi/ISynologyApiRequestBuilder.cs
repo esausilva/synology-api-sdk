@@ -15,7 +15,6 @@ public interface ISynologyApiRequestBuilder
     /// Example usage:
     /// <code>
     /// var apiInfoRequest = new ApiInfoRequest(
-    ///     api: SynologyApis.ApiInfo,
     ///     method: "query",
     ///     version: 1);
     /// var apiInfoUrl = synoApiRequestBuilder.BuildUrl(apiInfoRequest);

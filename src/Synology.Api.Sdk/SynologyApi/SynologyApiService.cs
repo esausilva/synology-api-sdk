@@ -13,19 +13,45 @@ internal sealed class SynologyApiService : ISynologyApiService
         _httpClientFactoryFactory = httpClientFactory;
     }
 
-    public async Task<T> GetAsync<T>(string url, CancellationToken cancellationToken = default) where T : ResponseBase
+    public async Task<T> GetAsync<T>(string requestUrl, CancellationToken cancellationToken = default) where T : ResponseBase
     {
-        ArgumentException.ThrowIfNullOrWhiteSpace(url);
+        ArgumentException.ThrowIfNullOrWhiteSpace(requestUrl);
         
-        using var client = _httpClientFactoryFactory.CreateClient(SynologyApiHttpClient);
+        using var httpClient = _httpClientFactoryFactory.CreateClient(SynologyApiHttpClient);
 
-        var response = await client.GetAsync(url, cancellationToken);
+        var response = await httpClient.GetAsync(requestUrl, cancellationToken);
         var responseData = await response.Content.ReadAsStringAsync(cancellationToken);
         var deserialize = JsonSerializer.Deserialize<T>(responseData, 
             new JsonSerializerOptions { PropertyNameCaseInsensitive = true })!;
         
-        deserialize.GetType().GetProperty("StatusCode")?.SetValue(deserialize, response.StatusCode);
+        deserialize
+            .GetType()
+            .GetProperty("StatusCode")?
+            .SetValue(deserialize, response.StatusCode);
         
         return deserialize;
+    }
+    
+    public async Task<RawResponse> GetRawResponseAsync(string requestUrl, CancellationToken cancellationToken = default)
+    {
+        ArgumentException.ThrowIfNullOrWhiteSpace(requestUrl);
+        
+        using var httpClient = _httpClientFactoryFactory.CreateClient(SynologyApiHttpClient);
+
+        var response = await httpClient.GetAsync(requestUrl, cancellationToken);
+        var errorResponse = await IsErrorResponse();
+        
+        return errorResponse ?? new RawResponse
+        {
+            HttpResponse = response, 
+            Success = true, 
+            StatusCode = response.StatusCode
+        };
+        
+        async Task<RawResponse?> IsErrorResponse() =>
+            response.Content.Headers.ContentType?.MediaType == "application/json"
+                ? await JsonSerializer.DeserializeAsync<RawResponse>(await response.Content.ReadAsStreamAsync(cancellationToken),
+                    new JsonSerializerOptions { PropertyNameCaseInsensitive = true }, cancellationToken)
+                : null;
     }
 }

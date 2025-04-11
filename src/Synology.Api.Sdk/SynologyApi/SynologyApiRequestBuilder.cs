@@ -41,28 +41,32 @@ internal sealed class SynologyApiRequestBuilder(IOptions<UriBase> uriBase) : ISy
 
     private static string GetEncodedPropertyValue(object? propertyValue)
     {
-        string encodedPropertyValue;
-        
-        if (IsEnumerable(propertyValue) && propertyValue is IEnumerable<string> stringValues)
+        var encodedPropertyValue = propertyValue.IsEnumerable() switch
         {
-            encodedPropertyValue = ConvertToJsonArray(stringValues);
-        }
-        else
-        {
-            encodedPropertyValue = EncodeUrl(propertyValue?.ToString() ?? string.Empty);
-        }
-        
+            true when propertyValue is IEnumerable<string> stringValues => ConvertToJsonArray(stringValues),
+            true when propertyValue is IEnumerable<int> intValues => ConvertToJsonArray(intValues),
+            _ => EncodeUrl(propertyValue?.ToString() ?? string.Empty)
+        };
+
         return encodedPropertyValue;
     }
-
-    private static bool IsEnumerable(object? value) => value is IEnumerable<object> && value?.GetType() != typeof(string);
-
+    
+    // Returns a string in the following format '["item1","item2","item3"]'
     private static string ConvertToJsonArray(IEnumerable<string> values)
     {
         var jsonArray = values
             .Select(EncodeUrl)
             .Aggregate("[", (current, param) => current + $"\"{param}\",");
         
+        return jsonArray.TrimEnd(',') + "]";
+    }
+    
+    // Returns a string in the following format '[1,2,3]'
+    private static string ConvertToJsonArray(IEnumerable<int> values)
+    {
+        var jsonArray = values
+            .Aggregate("[", (current, param) => current + $"{param},");
+
         return jsonArray.TrimEnd(',') + "]";
     }
 

@@ -10,6 +10,8 @@ using Synology.Api.Sdk.SynologyApi.Auth.Request;
 using Synology.Api.Sdk.SynologyApi.Auth.Response;
 using Synology.Api.Sdk.SynologyApi.Foto.Request;
 using Synology.Api.Sdk.SynologyApi.Foto.Response;
+using Synology.Api.Sdk.SynologyApi.FotoTeam.Request;
+using Synology.Api.Sdk.SynologyApi.Helpers;
 
 var builder = Host.CreateDefaultBuilder(args);
 
@@ -65,6 +67,21 @@ var fotoBrowseAlbumResponse = await synoApiService.GetAsync<FotoBrowseAlbumRespo
 
 Console.WriteLine(fotoBrowseAlbumUrl);
 Console.WriteLine(SerializeResponse(fotoBrowseAlbumResponse));
+
+// ------ FotoTeam.Download
+var fotoTeamDownloadRequest = new FotoTeamDownloadRequest(
+    version: apiInfoResponse.Data.SynoFotoTeamDownload.MaxVersion,
+    method: "download",
+    unitId: [54828,25276,25245],
+    synoToken: loginResponse.Data.SynoToken!);
+var fotoTeamDownloadUrl = synoApiRequestBuilder.BuildUrl(fotoTeamDownloadRequest);
+
+var fotoTeamDownloadResponse = await synoApiService.GetRawResponseAsync(fotoTeamDownloadUrl, cancellationToken);
+var currentDirectory = Directory.GetCurrentDirectory();
+
+await Helpers.DownloadImageOrZipFromFotoApi(currentDirectory, fotoTeamDownloadResponse.HttpResponse);
+
+Console.WriteLine(fotoTeamDownloadUrl);
 
 // ------ ApiAuth - Logout
 var logoutRequest = new LogoutRequest(
