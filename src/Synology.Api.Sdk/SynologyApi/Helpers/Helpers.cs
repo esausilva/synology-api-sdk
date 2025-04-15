@@ -26,7 +26,7 @@ public static partial class Helpers
             .TryGetValues("Content-Disposition", out var contentDispositionValues))
         {
             var value = contentDispositionValues.FirstOrDefault();
-            filename = ExtractFilenameFromContentDisposition(value);
+            filename = ExtractFilenameFromHeaderValue(value);
         }
 
         if (string.IsNullOrWhiteSpace(filename))
@@ -62,15 +62,16 @@ public static partial class Helpers
         await stream.CopyToAsync(fileStream);
     }
 
+    // Regex targets 'filename="file.extension"' string from a given string value
     [GeneratedRegex("filename=\"([^\"]+)\"")]
     private static partial Regex FilenameRegex();
 
-    private static string ExtractFilenameFromContentDisposition(string? contentDisposition)
+    private static string ExtractFilenameFromHeaderValue(string? stringValue)
     {
-        if (contentDisposition is null)
+        if (stringValue is null)
             return string.Empty;
         
-        var match = FilenameRegex().Match(contentDisposition);
+        var match = FilenameRegex().Match(stringValue);
         
         return match.Success ? match.Groups[1].Value : string.Empty;
     }
