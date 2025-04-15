@@ -3,6 +3,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Synology.Api.Sdk.Config;
+using Synology.Api.Sdk.Constants;
+using Synology.Api.Sdk.Extensions;
 using Synology.Api.Sdk.SynologyApi;
 using Synology.Api.Sdk.SynologyApi.ApiInfo.Request;
 using Synology.Api.Sdk.SynologyApi.ApiInfo.Response;
@@ -35,7 +37,7 @@ var cancellationToken = GenerateCancellationToken();
 
 // ------ ApiInfo
 var apiInfoRequest = new ApiInfoRequest(
-    method: "query",
+    method: ApiInfo.Query.GetDisplayName()!,
     version: 1);
 var apiInfoUrl = synoApiRequestBuilder.BuildUrl(apiInfoRequest);
 var apiInfoResponse = await synoApiService.GetAsync<ApiInfoResponse>(apiInfoUrl, cancellationToken);
@@ -45,7 +47,7 @@ Console.WriteLine(SerializeResponse(apiInfoResponse));
 
 // ------ ApiAuth - Login
 var loginRequest = new LoginRequest(
-    method: "login",
+    method: ApiAuth.Login.GetDisplayName()!,
     version: apiInfoResponse.Data.SynoApiAuth.MaxVersion,
     account: configuration["User:Account"]!,
     password: configuration["User:Password"]!);
@@ -58,7 +60,7 @@ Console.WriteLine(SerializeResponse(loginResponse));
 // ------ Foto.Browse.Album
 var fotoBrowseAlbumRequest = new FotoBrowseAlbumRequest(
     version: apiInfoResponse.Data.SynoFotoBrowseAlbum.MaxVersion,
-    method: "list",
+    method: FotoBrowseAlbum.List.GetDisplayName()!,
     offset: 0,
     limit: 10,
     synoToken: loginResponse.Data.SynoToken!);
@@ -71,7 +73,7 @@ Console.WriteLine(SerializeResponse(fotoBrowseAlbumResponse));
 // ------ FotoTeam.Download
 var fotoTeamDownloadRequest = new FotoTeamDownloadRequest(
     version: apiInfoResponse.Data.SynoFotoTeamDownload.MaxVersion,
-    method: "download",
+    method: FotoTeamDownload.Download.GetDisplayName()!,
     unitId: [54828,25276,25245],
     synoToken: loginResponse.Data.SynoToken!);
 var fotoTeamDownloadUrl = synoApiRequestBuilder.BuildUrl(fotoTeamDownloadRequest);
@@ -85,7 +87,7 @@ Console.WriteLine(fotoTeamDownloadUrl);
 
 // ------ ApiAuth - Logout
 var logoutRequest = new LogoutRequest(
-    method: "logout",
+    method: ApiAuth.Logout.GetDisplayName()!,
     version: apiInfoResponse.Data.SynoApiAuth.MaxVersion,
     sid: loginResponse.Data.Sid);
 var logoutUrl = synoApiRequestBuilder.BuildUrl(logoutRequest);
