@@ -10,8 +10,6 @@ using Synology.Api.Sdk.SynologyApi.ApiInfo.Request;
 using Synology.Api.Sdk.SynologyApi.ApiInfo.Response;
 using Synology.Api.Sdk.SynologyApi.Auth.Request;
 using Synology.Api.Sdk.SynologyApi.Auth.Response;
-using Synology.Api.Sdk.SynologyApi.FileStation.Request;
-using Synology.Api.Sdk.SynologyApi.FileStation.Response;
 using Synology.Api.Sdk.SynologyApi.Foto.Request;
 using Synology.Api.Sdk.SynologyApi.Foto.Response;
 using Synology.Api.Sdk.SynologyApi.FotoTeam.Request;
@@ -44,8 +42,8 @@ var apiInfoRequest = new ApiInfoRequest(
 var apiInfoUrl = synoApiRequestBuilder.BuildUrl(apiInfoRequest);
 var apiInfoResponse = await synoApiService.GetAsync<ApiInfoResponse>(apiInfoUrl, cancellationToken);
 
-// Console.WriteLine(apiInfoUrl);
-// Console.WriteLine(SerializeResponse(apiInfoResponse));
+Console.WriteLine(apiInfoUrl);
+Console.WriteLine(SerializeResponse(apiInfoResponse));
 
 // ------ ApiAuth - Login
 var loginRequest = new LoginRequest(
@@ -56,36 +54,36 @@ var loginRequest = new LoginRequest(
 var loginUrl = synoApiRequestBuilder.BuildUrl(loginRequest);
 var loginResponse = await synoApiService.GetAsync<LoginResponse>(loginUrl, cancellationToken);
 
-// Console.WriteLine(loginUrl);
-// Console.WriteLine(SerializeResponse(loginResponse));
+Console.WriteLine(loginUrl);
+Console.WriteLine(SerializeResponse(loginResponse));
 
 // ------ Foto.Browse.Album
-var fotoBrowseAlbumRequest = new FileStationListRequest(
-    version: apiInfoResponse.Data.SynoFileStationList.MaxVersion,
-    method: FileStationList.ListShare.GetDisplayName()!,
-    limit: 2,
-    onlyWritable: true,
+var fotoBrowseAlbumRequest = new FotoBrowseAlbumRequest(
+    version: apiInfoResponse.Data.SynoFotoBrowseAlbum.MaxVersion,
+    method: FotoBrowseAlbum.List.GetDisplayName()!,
+    offset: 0,
+    limit: 10,
     synoToken: loginResponse.Data.SynoToken!);
 var fotoBrowseAlbumUrl = synoApiRequestBuilder.BuildUrl(fotoBrowseAlbumRequest);
-var fotoBrowseAlbumResponse = await synoApiService.GetAsync<FileStationListResponse>(fotoBrowseAlbumUrl, cancellationToken);
+var fotoBrowseAlbumResponse = await synoApiService.GetAsync<FotoBrowseAlbumResponse>(fotoBrowseAlbumUrl, cancellationToken);
 
 Console.WriteLine(fotoBrowseAlbumUrl);
 Console.WriteLine(SerializeResponse(fotoBrowseAlbumResponse));
 
 // ------ FotoTeam.Download
-// var fotoTeamDownloadRequest = new FotoTeamDownloadRequest(
-//     version: apiInfoResponse.Data.SynoFotoTeamDownload.MaxVersion,
-//     method: FotoTeamDownload.Download.GetDisplayName()!,
-//     unitId: [54828,25276,25245],
-//     synoToken: loginResponse.Data.SynoToken!);
-// var fotoTeamDownloadUrl = synoApiRequestBuilder.BuildUrl(fotoTeamDownloadRequest);
-//
-// var fotoTeamDownloadResponse = await synoApiService.GetRawResponseAsync(fotoTeamDownloadUrl, cancellationToken);
-// var currentDirectory = Directory.GetCurrentDirectory();
-//
-// await Helpers.DownloadImageOrZipFromFotoApi(currentDirectory, fotoTeamDownloadResponse.HttpResponse);
-//
-// Console.WriteLine(fotoTeamDownloadUrl);
+var fotoTeamDownloadRequest = new FotoTeamDownloadRequest(
+    version: apiInfoResponse.Data.SynoFotoTeamDownload.MaxVersion,
+    method: FotoTeamDownload.Download.GetDisplayName()!,
+    unitId: [54828,25276,25245],
+    synoToken: loginResponse.Data.SynoToken!);
+var fotoTeamDownloadUrl = synoApiRequestBuilder.BuildUrl(fotoTeamDownloadRequest);
+
+var fotoTeamDownloadResponse = await synoApiService.GetRawResponseAsync(fotoTeamDownloadUrl, cancellationToken);
+var currentDirectory = Directory.GetCurrentDirectory();
+
+await Helpers.DownloadImageOrZipFromFotoApi(currentDirectory, fotoTeamDownloadResponse.HttpResponse);
+
+Console.WriteLine(fotoTeamDownloadUrl);
 
 // ------ ApiAuth - Logout
 var logoutRequest = new LogoutRequest(
@@ -95,8 +93,8 @@ var logoutRequest = new LogoutRequest(
 var logoutUrl = synoApiRequestBuilder.BuildUrl(logoutRequest);
 var logoutResponse = await synoApiService.GetAsync<LogoutResponse>(logoutUrl, cancellationToken);
 
-// Console.WriteLine(logoutUrl);
-// Console.WriteLine(SerializeResponse(logoutResponse));
+Console.WriteLine(logoutUrl);
+Console.WriteLine(SerializeResponse(logoutResponse));
 
 await host.RunAsync();
 
