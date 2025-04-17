@@ -25,6 +25,12 @@ internal sealed class SynologyApiRequestBuilder(IOptions<UriBase> uriBase) : ISy
             
             var jsonPropertyName = jsonPropertyNameAttribute.Name;
             var propertyValue = property.GetValue(request);
+            
+            if (propertyValue is null)
+            {
+                continue;
+            }
+            
             var encodedPropertyValue = GetEncodedPropertyValue(propertyValue);
 
             parameters.Add(jsonPropertyName, encodedPropertyValue);

@@ -21,6 +21,16 @@ public enum ApiAuth
 
 #endregion
 
+#region FileStation
+
+public enum FileStationList
+{
+    [Display(Name = "list_share")]
+    ListShare,
+}
+
+#endregion
+
 #region Foto
 
 public enum FotoBrowseAlbum
