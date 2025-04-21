@@ -26,9 +26,18 @@ public sealed class FileStationListRequest : RequestBase
     
     [JsonPropertyName("onlywritable")]
     public bool? OnlyWritable { get; }
+
+    [JsonPropertyName("goto_path")]
+    public string? GoToPath { get; }
+    
+    [JsonPropertyName("folder_path")]
+    public string? FolderPath { get; }
+    
+    [JsonPropertyName("path")]
+    public string? FilePath { get; }
     
     /// <summary>
-    /// Represents a request to retrieve a list of shared folders in the Shared Space.
+    /// Represents a request to retrieve a list of files and folders in a directory.
     /// <br/><br/>
     /// <b>Target API</b>: SYNO.FileStation.List
     /// </summary>
@@ -43,7 +52,8 @@ public sealed class FileStationListRequest : RequestBase
     /// </exception>
     public FileStationListRequest(int version, string method, string synoToken, int? offset = null, 
         int? limit = null, IReadOnlyList<string>? additional = null, string? sortBy = null, 
-        string? sortDirection = null, bool? onlyWritable = null)
+        string? sortDirection = null, bool? onlyWritable = null, string? gotoPath = null, string? folderPath = null,
+        string? path = null)
         : base(SynologyApis.FileStationList, version, method)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(synoToken, nameof(synoToken));
@@ -55,5 +65,8 @@ public sealed class FileStationListRequest : RequestBase
         SortBy = sortBy;
         SortDirection = sortDirection;
         OnlyWritable = onlyWritable;
+        GoToPath = gotoPath;
+        FolderPath = folderPath;
+        FilePath = path;
     }
 }

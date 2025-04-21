@@ -27,6 +27,12 @@ public enum FileStationList
 {
     [Display(Name = "list_share")]
     ListShare,
+    
+    [Display(Name = "list")]
+    List,
+    
+    [Display(Name = "getinfo")]
+    GetInfo,
 }
 
 #endregion
