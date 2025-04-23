@@ -81,7 +81,7 @@ var fotoTeamDownloadUrl = synoApiRequestBuilder.BuildUrl(fotoTeamDownloadRequest
 var fotoTeamDownloadResponse = await synoApiService.GetRawResponseAsync(fotoTeamDownloadUrl, cancellationToken);
 var currentDirectory = Directory.GetCurrentDirectory();
 
-await Helpers.DownloadImageOrZipFromFotoApi(currentDirectory, fotoTeamDownloadResponse.HttpResponse);
+await DownloadHelpers.DownloadImageOrZipFromFotoApi(currentDirectory, fotoTeamDownloadResponse.HttpResponse);
 
 Console.WriteLine(fotoTeamDownloadUrl);
 

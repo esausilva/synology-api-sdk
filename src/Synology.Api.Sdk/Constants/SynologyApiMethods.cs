@@ -35,6 +35,12 @@ public enum FileStationList
     GetInfo,
 }
 
+public enum FileStationDownload
+{
+    [Display(Name = "download")]
+    Download,
+}
+
 #endregion
 
 #region Foto

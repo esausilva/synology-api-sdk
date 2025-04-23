@@ -2,7 +2,7 @@ using System.Text.RegularExpressions;
 
 namespace Synology.Api.Sdk.SynologyApi.Helpers;
 
-public static partial class Helpers
+public static partial class DownloadHelpers
 {
     /// <summary>
     /// Downloads an image or ZIP file from the FotoTeam API and saves it to the specified path.
@@ -48,8 +48,49 @@ public static partial class Helpers
             filename = $"download.{extension}";
         }
         
-        var filePath = Path.Combine(absolutePath, $"{filename}");
+        var filePath = Path.Combine(absolutePath, filename);
 
+        await using var stream = await httpResponse.Content.ReadAsStreamAsync()!;
+        await using var fileStream = new FileStream(
+            filePath, 
+            FileMode.Create, 
+            FileAccess.Write, 
+            FileShare.None, 
+            bufferSize: 8192, 
+            useAsync: true);
+        
+        await stream.CopyToAsync(fileStream);
+    }
+
+    /// <summary>
+    /// Downloads an image or ZIP file from the FileStation API and saves it to the specified path.
+    /// </summary>
+    /// <param name="absolutePath">The absolute path where the file should be saved.</param>
+    /// <param name="filePaths">The list of file paths to be downloaded. If it contains a single file, the
+    /// filename is determined from its path.</param>
+    /// <param name="httpResponse">The HTTP response containing the file data to download.</param>
+    /// <remarks>
+    /// If a single file is being downloaded, the filename is extracted from the path of the file.
+    /// For multiple files, the data is saved as a ZIP file named "download.zip".
+    /// </remarks>
+    public static async Task DownloadImageOrZipFromFileStationApi(
+        string absolutePath,
+        IReadOnlyList<string> filePaths,
+        HttpResponseMessage? httpResponse)
+    {
+        if (httpResponse is null || filePaths.Count < 1)
+            return;
+
+        var filename = "download.zip";
+
+        if (filePaths.Count == 1)
+        {
+            var path = filePaths[0];
+            filename = FileNameFromPathRegex().Match(path).Value;
+        }
+
+        var filePath = Path.Combine(absolutePath, filename);
+        
         await using var stream = await httpResponse.Content.ReadAsStreamAsync()!;
         await using var fileStream = new FileStream(
             filePath, 
@@ -64,15 +105,19 @@ public static partial class Helpers
 
     // Regex targets 'filename="file.extension"' string from a given string value
     [GeneratedRegex("filename=\"([^\"]+)\"")]
-    private static partial Regex FilenameRegex();
+    private static partial Regex FilenameFromHeaderValueRegex();
 
     private static string ExtractFilenameFromHeaderValue(string? stringValue)
     {
         if (stringValue is null)
             return string.Empty;
         
-        var match = FilenameRegex().Match(stringValue);
+        var match = FilenameFromHeaderValueRegex().Match(stringValue);
         
         return match.Success ? match.Groups[1].Value : string.Empty;
     }
+
+    // Regex extracts the file name from a given path.
+    [GeneratedRegex(@"[^/\\]*$")]
+    private static partial Regex FileNameFromPathRegex();
 }
