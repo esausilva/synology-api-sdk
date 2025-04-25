@@ -1,4 +1,5 @@
 using System.Text.RegularExpressions;
+using Synology.Api.Sdk.SynologyApi.FileStation.Response;
 
 namespace Synology.Api.Sdk.SynologyApi.Helpers;
 
@@ -66,27 +67,27 @@ public static partial class DownloadHelpers
     /// Downloads an image or ZIP file from the FileStation API and saves it to the specified path.
     /// </summary>
     /// <param name="absolutePath">The absolute path where the file should be saved.</param>
-    /// <param name="filePaths">The list of file paths to be downloaded. If it contains a single file, the
-    /// filename is determined from its path.</param>
+    /// <param name="fileStationItems">The list of FileStation items to be downloaded.</param>
     /// <param name="httpResponse">The HTTP response containing the file data to download.</param>
     /// <remarks>
-    /// If a single file is being downloaded, the filename is extracted from the path of the file.
+    /// If a single file is being downloaded, the filename is extracted from the `Name` property of
+    /// the <see cref="FileStationItem"/>.
     /// For multiple files, the data is saved as a ZIP file named "download.zip".
     /// </remarks>
     public static async Task DownloadImageOrZipFromFileStationApi(
         string absolutePath,
-        IReadOnlyList<string> filePaths,
+        IReadOnlyList<FileStationItem> fileStationItems,
         HttpResponseMessage? httpResponse)
     {
-        if (httpResponse is null || filePaths.Count < 1)
+        if (httpResponse is null || fileStationItems.Count < 1)
             return;
 
         var filename = "download.zip";
 
-        if (filePaths.Count == 1)
+        if (fileStationItems.Count == 1)
         {
-            var path = filePaths[0];
-            filename = FileNameFromPathRegex().Match(path).Value;
+            var fileStationItem = fileStationItems[0];
+            filename = fileStationItem.Name;
         }
 
         var filePath = Path.Combine(absolutePath, filename);
@@ -116,8 +117,4 @@ public static partial class DownloadHelpers
         
         return match.Success ? match.Groups[1].Value : string.Empty;
     }
-
-    // Regex extracts the file name from a given path.
-    [GeneratedRegex(@"[^/\\]*$")]
-    private static partial Regex FileNameFromPathRegex();
 }

@@ -51,6 +51,7 @@ internal sealed class SynologyApiRequestBuilder(IOptions<UriBase> uriBase) : ISy
         {
             true when propertyValue is IEnumerable<string> stringValues => ConvertToJsonArray(stringValues),
             true when propertyValue is IEnumerable<int> intValues => ConvertToJsonArray(intValues),
+            false when propertyValue is bool boolValue => boolValue.ToString().ToLower(),
             _ => EncodeUrl(propertyValue?.ToString() ?? string.Empty)
         };
 

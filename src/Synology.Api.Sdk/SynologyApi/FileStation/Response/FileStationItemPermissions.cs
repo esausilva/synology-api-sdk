@@ -4,14 +4,14 @@ namespace Synology.Api.Sdk.SynologyApi.FileStation.Response;
 
 public sealed class FileStationItemPermissions
 {
-    public FileStationItemAcl Acl { get; init; } = new();
+    public FileStationItemAcl? Acl { get; init; }
     public int Posix { get; init; }
     
     [JsonPropertyName("acl_enable")]
     public bool AclEnabled { get; init; }
     
     [JsonPropertyName("adv_right")]
-    public FileStationItemAdvancedRights AdvancedRights { get; init; } = new();
+    public FileStationItemAdvancedRights? AdvancedRights { get; init; }
     
     [JsonPropertyName("is_acl_mode")]
     public bool IsAclMode { get; init; }

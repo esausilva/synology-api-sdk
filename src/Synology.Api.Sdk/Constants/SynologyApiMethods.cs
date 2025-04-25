@@ -35,6 +35,21 @@ public enum FileStationList
     GetInfo,
 }
 
+public enum FileStationSearch
+{
+    [Display(Name = "start")]
+    Start,
+    
+    [Display(Name = "list")]
+    List,
+    
+    [Display(Name = "stop")]
+    Stop,
+    
+    [Display(Name = "clean")]
+    Clean,
+}
+
 public enum FileStationDownload
 {
     [Display(Name = "download")]
