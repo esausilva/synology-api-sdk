@@ -23,7 +23,7 @@ public sealed class LogoutRequest : RequestBase
     /// <exception cref="ArgumentException">
     /// Thrown if the <paramref name="method"/> parameter is <c>null</c> or white space.
     /// </exception>
-    public LogoutRequest(string method, int version, string sid = "") : base(SynologyApis.ApiAuth, version, method)
+    public LogoutRequest(string method, int version, string sid = "") : base(SynologyApis.Api.Auth, version, method)
     {
         Sid = sid;
     }

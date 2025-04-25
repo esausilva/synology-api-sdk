@@ -37,7 +37,7 @@ public sealed class FotoBrowseAlbumRequest : RequestBase
     /// Thrown if the <paramref name="synoToken"/> parameter is <c>null</c> or white space.
     /// </exception>
     public FotoBrowseAlbumRequest(int version, string method, int offset, int limit, string synoToken) 
-        : base(SynologyApis.FotoBrowseAlbum, version, method)
+        : base(SynologyApis.Foto.BrowseAlbum, version, method)
     {
         offset.ThrowIfNegative(nameof(offset));
         limit.ThrowIfNegative(nameof(limit));

@@ -54,7 +54,7 @@ public sealed class FileStationListRequest : RequestBase
         int? limit = null, IReadOnlyList<string>? additional = null, string? sortBy = null, 
         string? sortDirection = null, bool? onlyWritable = null, string? gotoPath = null, string? folderPath = null,
         string? path = null)
-        : base(SynologyApis.FileStationList, version, method)
+        : base(SynologyApis.FileStation.List, version, method)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(synoToken, nameof(synoToken));
 

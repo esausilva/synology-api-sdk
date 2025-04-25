@@ -1,118 +1,92 @@
-using System.ComponentModel.DataAnnotations;
-
 namespace Synology.Api.Sdk.Constants;
 
-public enum ApiInfo
+public static class SynologyApiMethods
 {
-    [Display(Name = "query")]
-    Query,
-}
-
-#region Authentication
-
-public enum ApiAuth
-{
-    [Display(Name = "login")]
-    Login,
+    public static class Api
+    {
+        public const string Info_Query = "query";
+        public const string Auth_Login = "login";
+        public const string Auth_Logout = "logout";
+    }
     
-    [Display(Name = "logout")]
-    Logout,
-}
+    public static class FileStation
+    {
+        #region List
 
-#endregion
+        public const string List_ListShare = "list_share";
+        public const string List_List = "list";
+        public const string List_GetInfo = "getinfo";
 
-#region FileStation
+        #endregion
 
-public enum FileStationList
-{
-    [Display(Name = "list_share")]
-    ListShare,
+        #region Search
+
+        public const string Search_Start = "start";
+        public const string Search_List = "list";
+        public const string Search_Stop = "stop";
+        public const string Search_Clean = "clean";
+
+        #endregion
+
+        #region Download
+
+        public const string Download_Download = "download";
+
+        #endregion
+    }
     
-    [Display(Name = "list")]
-    List,
+    public static class Foto
+    {
+        #region BrowseAlbum
+
+        public const string BrowseAlbum_List = "list";
+
+        #endregion
+    }
     
-    [Display(Name = "getinfo")]
-    GetInfo,
+    public static class FotoTeam
+    {
+        #region BrowseFolder
+        
+        public const string BrowseFolder_ListParents = "list_parents";
+        public const string BrowseFolder_List = "list";
+        
+        #endregion
+        
+        #region BrowseItem
+        
+        public const string BrowseItem_List = "list";
+        
+        #endregion
+        
+        #region BrowseRecentlyAdded
+        
+        public const string BrowseRecentlyAdded_List = "list";
+        
+        #endregion
+        
+        #region BrowseTimeline
+        
+        public const string BrowseTimeline_Get = "get";
+        
+        #endregion
+        
+        #region Download
+        
+        public const string Download_Download = "download";
+        
+        #endregion
+        
+        #region Thumbnail
+        
+        public const string Thumbnail_Get = "get";
+        
+        #endregion
+        
+        #region SearchSearch
+        
+        public const string SearchSearch_CountItem = "count_item";
+        
+        #endregion
+    }
 }
-
-public enum FileStationSearch
-{
-    [Display(Name = "start")]
-    Start,
-    
-    [Display(Name = "list")]
-    List,
-    
-    [Display(Name = "stop")]
-    Stop,
-    
-    [Display(Name = "clean")]
-    Clean,
-}
-
-public enum FileStationDownload
-{
-    [Display(Name = "download")]
-    Download,
-}
-
-#endregion
-
-#region Foto
-
-public enum FotoBrowseAlbum
-{
-    [Display(Name = "list")]
-    List,
-}
-
-#endregion
-
-#region FotoTeam
-
-public enum FotoTeamBrowseFolder
-{
-    [Display(Name = "list_parents")]
-    ListParents,
-    
-    [Display(Name = "list")]
-    List,
-}
-
-public enum FotoTeamBrowseItem
-{
-    [Display(Name = "list")]
-    List,
-}
-
-public enum FotoTeamBrowseRecentlyAdded
-{
-    [Display(Name = "list")]
-    List,
-}
-
-public enum FotoTeamBrowseTimeline
-{
-    [Display(Name = "get")]
-    Get,
-}
-
-public enum FotoTeamDownload
-{
-    [Display(Name = "download")]
-    Download,
-}
-
-public enum FotoTeamThumbnail
-{
-    [Display(Name = "get")]
-    Get,
-}
-
-public enum FotoTeamSearchSearch
-{
-    [Display(Name = "count_item")]
-    CountItem,
-}
-
-#endregion

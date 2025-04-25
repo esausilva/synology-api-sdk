@@ -1,7 +1,7 @@
 using System.Text.Json.Serialization;
 using Synology.Api.Sdk.Constants;
-using Synology.Api.Sdk.Extensions;
 using Synology.Api.Sdk.SynologyApi.Shared.Request;
+using ApiMethods = Synology.Api.Sdk.Constants.SynologyApiMethods;
 
 namespace Synology.Api.Sdk.SynologyApi.FileStation.Request;
 
@@ -62,7 +62,7 @@ public sealed class FileStationSearchRequest : RequestBase
     public FileStationSearchRequest(int version, string method, string synoToken, IReadOnlyList<string>? folderPaths = null,
         string? fileType = null, string? pattern = null, string? extension = null, bool? recursive = null,
         string? taskId = null, int? offset = null, int? limit = null, IReadOnlyList<string>? additional = null)
-        : base(SynologyApis.FileStationSearch, version, method)
+        : base(SynologyApis.FileStation.Search, version, method)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(synoToken, nameof(synoToken));
         
@@ -87,14 +87,14 @@ public sealed class FileStationSearchRequest : RequestBase
 
         bool ShouldRequireFolderPaths()
         {
-            return method.Equals(FileStationSearch.Start.GetDisplayName(), StringComparison.InvariantCultureIgnoreCase) &&
+            return method.Equals(ApiMethods.FileStation.Search_Start, StringComparison.InvariantCultureIgnoreCase) &&
                    (folderPaths is null || folderPaths.Count == 0);
         }
 
         bool ShouldRequireTaskId()
         {
-            return (method.Equals(FileStationSearch.Stop.GetDisplayName(), StringComparison.InvariantCultureIgnoreCase) || 
-                    method.Equals(FileStationSearch.Clean.GetDisplayName(), StringComparison.InvariantCultureIgnoreCase)) 
+            return (method.Equals(ApiMethods.FileStation.Search_Stop, StringComparison.InvariantCultureIgnoreCase) || 
+                    method.Equals(ApiMethods.FileStation.Search_Clean, StringComparison.InvariantCultureIgnoreCase)) 
                    && string.IsNullOrWhiteSpace(taskId);
         }
     }

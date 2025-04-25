@@ -30,7 +30,7 @@ public sealed class FotoTeamSearchSearchRequest : RequestBase
     /// Thrown if the <paramref name="keyword"/> parameter is <c>null</c> or white space.
     /// </exception>
     public FotoTeamSearchSearchRequest(int version, string method, string synoToken, string keyword)
-        : base(SynologyApis.FotoTeamSearchSearch, version, method)
+        : base(SynologyApis.FotoTeam.SearchSearch, version, method)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(synoToken, nameof(synoToken));
         ArgumentException.ThrowIfNullOrWhiteSpace(keyword, nameof(keyword));

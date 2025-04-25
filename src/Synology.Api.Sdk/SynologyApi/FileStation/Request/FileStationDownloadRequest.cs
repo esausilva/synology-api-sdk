@@ -34,7 +34,7 @@ public sealed class FileStationDownloadRequest : RequestBase
     /// </exception>
     public FileStationDownloadRequest(int version, string method, string synoToken, IReadOnlyList<string> path, 
         string? mode = null)
-        : base(SynologyApis.FileStationDownload, version, method)
+        : base(SynologyApis.FileStation.Download, version, method)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(synoToken, nameof(synoToken));
         

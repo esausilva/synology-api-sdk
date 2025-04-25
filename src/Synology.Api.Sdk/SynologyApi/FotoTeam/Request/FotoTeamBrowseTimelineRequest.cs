@@ -24,7 +24,7 @@ public sealed class FotoTeamBrowseTimelineRequest : RequestBase
     /// Thrown if the <paramref name="synoToken"/> parameter is <c>null</c> or white space.
     /// </exception>
     public FotoTeamBrowseTimelineRequest(int version, string method, string synoToken)
-        : base(SynologyApis.FotoTeamBrowseTimeline, version, method)
+        : base(SynologyApis.FotoTeam.BrowseTimeline, version, method)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(synoToken, nameof(synoToken));
         

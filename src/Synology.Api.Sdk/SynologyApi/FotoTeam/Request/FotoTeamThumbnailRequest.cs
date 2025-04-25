@@ -50,7 +50,7 @@ public sealed class FotoTeamThumbnailRequest : RequestBase
     /// </exception>
     public FotoTeamThumbnailRequest(int version, string method, string synoToken, int id, string cacheKey, 
         string type, string size)
-        : base(SynologyApis.FotoTeamThumbnail, version, method)
+        : base(SynologyApis.FotoTeam.Thumbnail, version, method)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(synoToken, nameof(synoToken));
         ArgumentException.ThrowIfNullOrWhiteSpace(cacheKey, nameof(cacheKey));

@@ -2,37 +2,32 @@ namespace Synology.Api.Sdk.Constants;
 
 public static class SynologyApis
 {
-    public const string ApiInfo = "SYNO.API.Info";
+    public static class Api
+    {
+        public const string Info = "SYNO.API.Info";
+        public const string Auth = "SYNO.API.Auth";
+    }
 
-    #region Authentication
+    public static class FileStation
+    {
+        public const string List = "SYNO.FileStation.List";
+        public const string Download = "SYNO.FileStation.Download";
+        public const string Search = "SYNO.FileStation.Search";
+    }
 
-    public const string ApiAuth = "SYNO.API.Auth";
+    public static class Foto
+    {
+        public const string BrowseAlbum = "SYNO.Foto.Browse.Album";
+    }
 
-    #endregion
-
-    #region FileStation
-
-    public const string FileStationList = "SYNO.FileStation.List";
-    public const string FileStationDownload = "SYNO.FileStation.Download";
-    public const string FileStationSearch = "SYNO.FileStation.Search";
-
-    #endregion
-
-    #region Foto
-
-    public const string FotoBrowseAlbum = "SYNO.Foto.Browse.Album";
-
-    #endregion
-
-    #region FotoTeam
-
-    public const string FotoTeamBrowseFolder = "SYNO.FotoTeam.Browse.Folder";
-    public const string FotoTeamBrowseItem = "SYNO.FotoTeam.Browse.Item";
-    public const string FotoTeamBrowseRecentlyAdded = "SYNO.FotoTeam.Browse.RecentlyAdded";
-    public const string FotoTeamBrowseTimeline = "SYNO.FotoTeam.Browse.Timeline";
-    public const string FotoTeamDownload = "SYNO.FotoTeam.Download";
-    public const string FotoTeamThumbnail = "SYNO.FotoTeam.Thumbnail";
-    public const string FotoTeamSearchSearch = "SYNO.FotoTeam.Search.Search";
-
-    #endregion
+    public static class FotoTeam
+    {
+        public const string BrowseFolder = "SYNO.FotoTeam.Browse.Folder";
+        public const string BrowseItem = "SYNO.FotoTeam.Browse.Item";
+        public const string BrowseRecentlyAdded = "SYNO.FotoTeam.Browse.RecentlyAdded";
+        public const string BrowseTimeline = "SYNO.FotoTeam.Browse.Timeline";
+        public const string Download = "SYNO.FotoTeam.Download";
+        public const string Thumbnail = "SYNO.FotoTeam.Thumbnail";
+        public const string SearchSearch = "SYNO.FotoTeam.Search.Search";
+    }
 }

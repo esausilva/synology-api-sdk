@@ -41,7 +41,7 @@ public sealed class FotoTeamBrowseRecentlyAddedRequest : RequestBase
     /// </exception>
     public FotoTeamBrowseRecentlyAddedRequest(int version, string method, string synoToken, int offset, 
         int limit, IReadOnlyList<string>? additional = null)
-        : base(SynologyApis.FotoTeamBrowseRecentlyAdded, version, method)
+        : base(SynologyApis.FotoTeam.BrowseRecentlyAdded, version, method)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(synoToken, nameof(synoToken));
         offset.ThrowIfNegative(nameof(offset));

@@ -33,7 +33,7 @@ public sealed class LoginRequest : RequestBase
     /// Thrown if the <paramref name="password"/> parameter is <c>null</c> or white space.
     /// </exception>
     public LoginRequest(string method, int version, string account, string password, string enableSynoToken = "yes") 
-        : base(SynologyApis.ApiAuth, version, method)
+        : base(SynologyApis.Api.Auth, version, method)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(account, nameof(account));
         ArgumentException.ThrowIfNullOrWhiteSpace(password, nameof(password));

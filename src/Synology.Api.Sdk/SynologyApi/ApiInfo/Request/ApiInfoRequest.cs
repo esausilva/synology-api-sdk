@@ -14,6 +14,6 @@ namespace Synology.Api.Sdk.SynologyApi.ApiInfo.Request;
 /// <exception cref="ArgumentException">
 /// Thrown if the <paramref name="method"/> parameter is <c>null</c> or white space.
 /// </exception>
-public class ApiInfoRequest(int version, string method) : RequestBase(SynologyApis.ApiInfo, version, method)
+public class ApiInfoRequest(int version, string method) : RequestBase(SynologyApis.Api.Info, version, method)
 {
 }

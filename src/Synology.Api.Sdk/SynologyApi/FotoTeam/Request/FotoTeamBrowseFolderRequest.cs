@@ -44,7 +44,7 @@ public sealed class FotoTeamBrowseFolderRequest : RequestBase
     /// </exception>
     public FotoTeamBrowseFolderRequest(int version, string method, string synoToken, int offset = 0, 
         int limit = 100, int? id = null)
-        : base(SynologyApis.FotoTeamBrowseFolder, version, method)
+        : base(SynologyApis.FotoTeam.BrowseFolder, version, method)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(synoToken, nameof(synoToken));
         offset.ThrowIfNegative(nameof(offset));

@@ -27,7 +27,7 @@ public sealed class FotoTeamDownloadRequest : RequestBase
     /// Thrown if the <paramref name="synoToken"/> parameter is <c>null</c> or white space.
     /// </exception>
     public FotoTeamDownloadRequest(int version, string method, string synoToken, IReadOnlyList<int> unitId)
-        : base(SynologyApis.FotoTeamDownload, version, method)
+        : base(SynologyApis.FotoTeam.Download, version, method)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(synoToken, nameof(synoToken));
 
