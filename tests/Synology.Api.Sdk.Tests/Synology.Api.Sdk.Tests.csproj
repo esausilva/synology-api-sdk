@@ -10,4 +10,8 @@
       <ProjectReference Include="..\..\src\Synology.Api.Sdk\Synology.Api.Sdk.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <PackageReference Include="TUnit" Version="0.19.86" />
+    </ItemGroup>
+
 </Project>
