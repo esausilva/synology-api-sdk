@@ -2,26 +2,26 @@ using Microsoft.Extensions.Options;
 using Synology.Api.Sdk.Config;
 using Synology.Api.Sdk.Constants;
 using Synology.Api.Sdk.SynologyApi;
-using Synology.Api.Sdk.SynologyApi.Auth.Request;
+using Synology.Api.Sdk.SynologyApi.FileStation.Request;
 
 namespace Synology.Api.Sdk.Tests.UnitTests.SynologyApiTests;
 
 public class SynologyApiRequestBuilderTests
 {
-    private static LoginRequest? _request;
+    private static FileStationSearchRequest? _request;
     
     [Before(Class)]
     public static void Setup_Request()
     {
-        _request = new LoginRequest(
-            method: SynologyApiMethods.Api.Auth_Login,
+        _request = new FileStationSearchRequest(
+            method: SynologyApiMethods.FileStation.Search_Start,
             version: 2,
-            account: "admin",
-            password: "passwd");
+            synoToken: "synoToken",
+            folderPaths: ["/path/1","/path/2"]);
     }
     
     [Test]
-    public async Task Assert_BuildUrl_Contains_Correct_QueryString()
+    public async Task Assert_Url_Contains_Correct_QueryString()
     {
         var uriBase = new UriBase
         {
@@ -36,33 +36,29 @@ public class SynologyApiRequestBuilderTests
 
         await Assert
             .That(url)
-            .Contains("account=admin");
-
+            .Contains("api=SYNO.FileStation.Search");
+        
         await Assert
             .That(url)
-            .Contains("passwd=passwd");
-
-        await Assert
-            .That(url)
-            .Contains("enable_syno_token=yes");
-
+            .Contains("method=start");
+        
         await Assert
             .That(url)
             .Contains("version=2");
 
         await Assert
             .That(url)
-            .Contains("api=SYNO.API.Auth");
-        
+            .Contains("SynoToken=synoToken");
+
         await Assert
             .That(url)
-            .Contains("method=login");
+            .Contains($"folder_path=[\"{Uri.EscapeDataString("/path/1")}\",\"{Uri.EscapeDataString("/path/2")}\"]");
     }
     
     [Test]
     [Arguments(true, "https")]
     [Arguments(false, "http")]
-    public async Task Assert_BuildUrl_Has_Correct_Scheme(bool isHttps, string scheme)
+    public async Task Assert_Url_Has_Correct_Scheme(bool isHttps, string scheme)
     {
         var uriBase = new UriBase
         {
@@ -82,7 +78,7 @@ public class SynologyApiRequestBuilderTests
     [Test]
     [Arguments(5000, "localhost:5000")]
     [Arguments(null, "localhost")]
-    public async Task Assert_BuildUrl_Port_Value(int? port, string domain)
+    public async Task Assert_Url_Port_Value(int? port, string domain)
     {
         var uriBase = new UriBase
         {
@@ -96,5 +92,38 @@ public class SynologyApiRequestBuilderTests
         await Assert
             .That(url)
             .Contains(domain);
+    }
+    
+    [Test]
+    public async Task Assert_Url_Does_Not_Contain_Property_Without_JsonPropertyName()
+    {
+        var uriBase = new UriBase
+        {
+            ServerIpOrHostname = "localhost"
+        };
+        var options = Options.Create(uriBase);
+        var requestBuilder = new SynologyApiRequestBuilder(options);
+        var url = requestBuilder.BuildUrl(_request!);
+        
+        await Assert
+            .That(url)
+            .DoesNotContain($"{nameof(_request.AdditionalParameters)}=", 
+                StringComparison.InvariantCultureIgnoreCase);
+    }
+    
+    [Test]
+    public async Task Assert_Url_Does_Not_Contain_Property_With_Null_Value()
+    {
+        var uriBase = new UriBase
+        {
+            ServerIpOrHostname = "localhost"
+        };
+        var options = Options.Create(uriBase);
+        var requestBuilder = new SynologyApiRequestBuilder(options);
+        var url = requestBuilder.BuildUrl(_request!);
+        
+        await Assert
+            .That(url)
+            .DoesNotContain($"filetype=");
     }
 }
