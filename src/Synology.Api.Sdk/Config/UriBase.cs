@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 
 namespace Synology.Api.Sdk.Config;
-public class UriBase
+public sealed class UriBase
 {
     [Required] 
     public string ServerIpOrHostname { get; init; } = "";

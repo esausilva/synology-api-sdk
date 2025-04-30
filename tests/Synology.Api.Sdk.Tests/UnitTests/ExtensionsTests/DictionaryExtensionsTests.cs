@@ -7,7 +7,7 @@ public class DictionaryExtensionsTests
     private static readonly Dictionary<string, string> Dictionary = new();
 
     [Before(Test)]
-    public  void Setup_Dictionary_To_Test()
+    public void Setup_Dictionary_To_Test()
     {
         Dictionary.Clear();
         Dictionary.Add("key1", "value1");
