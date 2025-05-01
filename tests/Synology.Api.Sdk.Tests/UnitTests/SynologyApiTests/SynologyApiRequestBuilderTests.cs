@@ -3,6 +3,7 @@ using Synology.Api.Sdk.Config;
 using Synology.Api.Sdk.Constants;
 using Synology.Api.Sdk.SynologyApi;
 using Synology.Api.Sdk.SynologyApi.FileStation.Request;
+using Synology.Api.Sdk.SynologyApi.FotoTeam.Request;
 
 namespace Synology.Api.Sdk.Tests.UnitTests.SynologyApiTests;
 
@@ -125,5 +126,26 @@ public class SynologyApiRequestBuilderTests
         await Assert
             .That(url)
             .DoesNotContain($"filetype=");
+    }
+    
+    [Test]
+    public async Task Assert_Url_Contains_Correct_QueryString_With_Literal_Int_Array()
+    {
+        var request = new FotoTeamDownloadRequest(
+            method: SynologyApiMethods.FileStation.Search_Start,
+            version: 2,
+            synoToken: "synoToken",
+            unitId: [1,2]);
+        var uriBase = new UriBase
+        {
+            ServerIpOrHostname = "localhost"
+        };
+        var options = Options.Create(uriBase);
+        var requestBuilder = new SynologyApiRequestBuilder(options);
+        var url = requestBuilder.BuildUrl(request!);
+        
+        await Assert
+            .That(url)
+            .Contains($"unit_id=[1,2]");
     }
 }
