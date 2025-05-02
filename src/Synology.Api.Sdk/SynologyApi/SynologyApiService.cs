@@ -21,15 +21,15 @@ internal sealed class SynologyApiService : ISynologyApiService
 
         var response = await httpClient.GetAsync(requestUrl, cancellationToken);
         var responseData = await response.Content.ReadAsStringAsync(cancellationToken);
-        var deserialize = JsonSerializer.Deserialize<T>(responseData, 
+        var result = JsonSerializer.Deserialize<T>(responseData, 
             new JsonSerializerOptions { PropertyNameCaseInsensitive = true })!;
         
-        deserialize
+        result
             .GetType()
             .GetProperty("StatusCode")?
-            .SetValue(deserialize, response.StatusCode);
+            .SetValue(result, response.StatusCode);
         
-        return deserialize;
+        return result;
     }
     
     public async Task<RawResponse> GetRawResponseAsync(string requestUrl, CancellationToken cancellationToken = default)
@@ -39,14 +39,24 @@ internal sealed class SynologyApiService : ISynologyApiService
         using var httpClient = _httpClientFactoryFactory.CreateClient(SynologyApiHttpClient);
 
         var response = await httpClient.GetAsync(requestUrl, cancellationToken);
-        var errorResponse = await IsErrorResponse();
+        var isError = await IsErrorResponse();
         
-        return errorResponse ?? new RawResponse
+        var result = isError ?? new RawResponse
         {
             HttpResponse = response, 
             Success = true, 
             StatusCode = response.StatusCode
         };
+        
+        if (isError is not null)
+        {
+            result
+                .GetType()
+                .GetProperty("StatusCode")?
+                .SetValue(result, response.StatusCode);
+        }
+        
+        return result;
         
         async Task<RawResponse?> IsErrorResponse() =>
             response.Content.Headers.ContentType?.MediaType == "application/json"
