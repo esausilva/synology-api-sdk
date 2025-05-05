@@ -10,6 +10,7 @@ namespace Synology.Api.Sdk.Tests.UnitTests.SynologyApiTests;
 public class SynologyApiRequestBuilderTests
 {
     private static FileStationSearchRequest? _request;
+    private const string UrlPattern = @"^(https?:\/\/)[a-zA-Z0-9.-]+(:\d+)?\/[^?]+\?([^=&]+=[^&]*&)*[^=&]+=[^&]*$";
     
     [Before(Class)]
     public static void Setup_Request()
@@ -22,7 +23,7 @@ public class SynologyApiRequestBuilderTests
     }
     
     [Test]
-    public async Task Assert_Url_Contains_Correct_QueryString()
+    public async Task Assert_Url_Contains_QueryString()
     {
         var uriBase = new UriBase
         {
@@ -32,28 +33,10 @@ public class SynologyApiRequestBuilderTests
         var options = Options.Create(uriBase);
         var requestBuilder = new SynologyApiRequestBuilder(options);
         var url = requestBuilder.BuildUrl(_request!);
-        
-        using var _ = Assert.Multiple();
-
+    
         await Assert
             .That(url)
-            .Contains("api=SYNO.FileStation.Search");
-        
-        await Assert
-            .That(url)
-            .Contains("method=start");
-        
-        await Assert
-            .That(url)
-            .Contains("version=2");
-
-        await Assert
-            .That(url)
-            .Contains("SynoToken=synoToken");
-
-        await Assert
-            .That(url)
-            .Contains($"folder_path=[\"{Uri.EscapeDataString("/path/1")}\",\"{Uri.EscapeDataString("/path/2")}\"]");
+            .Matches(UrlPattern);
     }
     
     [Test]

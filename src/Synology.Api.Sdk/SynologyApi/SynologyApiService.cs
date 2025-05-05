@@ -7,6 +7,7 @@ namespace Synology.Api.Sdk.SynologyApi;
 internal sealed class SynologyApiService : ISynologyApiService
 {
     private readonly IHttpClientFactory _httpClientFactoryFactory;
+    private const string StatusCode = "StatusCode";
 
     public SynologyApiService(IHttpClientFactory httpClientFactory)
     {
@@ -26,7 +27,7 @@ internal sealed class SynologyApiService : ISynologyApiService
         
         result
             .GetType()
-            .GetProperty("StatusCode")?
+            .GetProperty(StatusCode)?
             .SetValue(result, response.StatusCode);
         
         return result;
@@ -52,7 +53,7 @@ internal sealed class SynologyApiService : ISynologyApiService
         {
             result
                 .GetType()
-                .GetProperty("StatusCode")?
+                .GetProperty(StatusCode)?
                 .SetValue(result, response.StatusCode);
         }
         

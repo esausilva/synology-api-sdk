@@ -15,4 +15,8 @@
       <PackageReference Include="TUnit" Version="0.19.86" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="UnitTests\SynologyApiTests\RequestTests\FotoTeam\" />
+    </ItemGroup>
+
 </Project>
