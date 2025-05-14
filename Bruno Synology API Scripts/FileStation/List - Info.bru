@@ -1,0 +1,20 @@
+meta {
+  name: List - Info
+  type: http
+  seq: 3
+}
+
+get {
+  url: http://127.0.0.1:5000/webapi/entry.cgi?api=SYNO.FileStation.List&version=2&method=getinfo&additional=["real_path","time","type"]&path="/photo/Marriage/2025/2025 - Misc/20250117_185722.jpg"&SynoToken={{synoToken}}
+  body: none
+  auth: inherit
+}
+
+params:query {
+  api: SYNO.FileStation.List
+  version: 2
+  method: getinfo
+  additional: ["real_path","time","type"]
+  path: "/photo/Marriage/2025/2025 - Misc/20250117_185722.jpg"
+  SynoToken: {{synoToken}}
+}

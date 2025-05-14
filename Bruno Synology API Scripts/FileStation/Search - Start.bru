@@ -1,0 +1,30 @@
+meta {
+  name: Search - Start
+  type: http
+  seq: 5
+}
+
+get {
+  url: http://127.0.0.1:5000/webapi/entry.cgi?api=SYNO.FileStation.Search&version=2&method=start&folder_path=["/photo/Marriage"]&SynoToken={{synoToken}}&filetype="file"
+  body: none
+  auth: inherit
+}
+
+params:query {
+  api: SYNO.FileStation.Search
+  version: 2
+  method: start
+  folder_path: ["/photo/Marriage"]
+  SynoToken: {{synoToken}}
+  filetype: "file"
+  ~pattern: "20250117_185722*"
+  ~extension: *.jpg,*.mp4
+  ~recursive: true
+}
+
+script:post-response {
+  const resBody = res.getBody();
+  
+  bru.setVar("searchTaskid", resBody.data?.taskid);
+  
+}

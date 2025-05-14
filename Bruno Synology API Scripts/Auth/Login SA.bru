@@ -1,0 +1,28 @@
+meta {
+  name: Login SA
+  type: http
+  seq: 1
+}
+
+get {
+  url: http://127.0.0.1:5000/webapi/entry.cgi?api=SYNO.API.Auth&version=7&method=login&account=SynoApiServiceAcct&passwd=PASSWD123&enable_syno_token=yes
+  body: none
+  auth: inherit
+}
+
+params:query {
+  api: SYNO.API.Auth
+  version: 7
+  method: login
+  account: SynoApiServiceAcct
+  passwd: PASSWD123
+  enable_syno_token: yes
+}
+
+script:post-response {
+  const resBody = res.getBody();
+  
+  bru.setVar("synoToken", resBody.data?.synotoken);
+  bru.setVar("sid", resBody.data?.sid);
+  
+}

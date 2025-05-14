@@ -1,0 +1,24 @@
+meta {
+  name: List - Shares
+  type: http
+  seq: 1
+}
+
+get {
+  url: http://127.0.0.1:5000/webapi/entry.cgi?api=SYNO.FileStation.List&version=2&method=list_share&SynoToken={{synoToken}}&limit=20&offset=0&additional=["real_path","type"]&onlywritable=false&sort_by=mtime
+  body: none
+  auth: inherit
+}
+
+params:query {
+  api: SYNO.FileStation.List
+  version: 2
+  method: list_share
+  SynoToken: {{synoToken}}
+  limit: 20
+  offset: 0
+  additional: ["real_path","type"]
+  onlywritable: false
+  sort_by: mtime
+  ~sort_direction: desc
+}

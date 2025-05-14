@@ -1,0 +1,17 @@
+meta {
+  name: API Info
+  type: http
+  seq: 1
+}
+
+get {
+  url: http://127.0.0.1:5000/webapi/entry.cgi?api=SYNO.API.Info&version=1&method=query
+  body: none
+  auth: inherit
+}
+
+params:query {
+  api: SYNO.API.Info
+  version: 1
+  method: query
+}

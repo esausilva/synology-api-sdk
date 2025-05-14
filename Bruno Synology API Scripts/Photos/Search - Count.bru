@@ -1,0 +1,19 @@
+meta {
+  name: Search - Count
+  type: http
+  seq: 8
+}
+
+get {
+  url: http://127.0.0.1:5000/webapi/entry.cgi?api=SYNO.FotoTeam.Search.Search&method=count_item&version=6&SynoToken={{synoToken}}&keyword=esau
+  body: none
+  auth: inherit
+}
+
+params:query {
+  api: SYNO.FotoTeam.Search.Search
+  method: count_item
+  version: 6
+  SynoToken: {{synoToken}}
+  keyword: esau
+}

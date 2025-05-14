@@ -1,0 +1,22 @@
+meta {
+  name: Timeline
+  type: http
+  seq: 9
+}
+
+get {
+  url: http://127.0.0.1:5000/webapi/entry.cgi?api=SYNO.FotoTeam.Browse.Timeline&method=get&version=5&SynoToken={{synoToken}}
+  body: none
+  auth: inherit
+}
+
+params:query {
+  api: SYNO.FotoTeam.Browse.Timeline
+  method: get
+  version: 5
+  SynoToken: {{synoToken}}
+  ~SectionLimit: 2
+  ~SectionOffset: 20
+  ~section: [""]
+  ~additional: ["thumbnail"]
+}

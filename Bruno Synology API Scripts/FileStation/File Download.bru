@@ -1,0 +1,26 @@
+meta {
+  name: File Download
+  type: http
+  seq: 4
+}
+
+get {
+  url: http://127.0.0.1:5000/webapi/entry.cgi?api=SYNO.FileStation.Download&version=2&method=download&path=["/photo/Marriage/2025/2025 - Misc/20250117_185722.jpg","/photo/Marriage/2025/202502 - Snow/PXL_20250219_210721438.jpg"]&mode="download"&SynoToken={{synoToken}}
+  body: none
+  auth: inherit
+}
+
+params:query {
+  api: SYNO.FileStation.Download
+  version: 2
+  method: download
+  path: ["/photo/Marriage/2025/2025 - Misc/20250117_185722.jpg","/photo/Marriage/2025/202502 - Snow/PXL_20250219_210721438.jpg"]
+  mode: "download"
+  SynoToken: {{synoToken}}
+}
+
+script:pre-request {
+  /*
+  mode=[open|download]
+  */
+}

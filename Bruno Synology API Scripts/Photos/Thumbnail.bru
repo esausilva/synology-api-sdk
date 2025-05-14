@@ -1,0 +1,23 @@
+meta {
+  name: Thumbnail
+  type: http
+  seq: 7
+}
+
+get {
+  url: http://127.0.0.1:5000/webapi/entry.cgi?api=SYNO.FotoTeam.Thumbnail&version=2&id=44799&SynoToken={{synoToken}}&method=get&type=unit&cache_key=44799_1699748818&size=xl
+  body: none
+  auth: inherit
+}
+
+params:query {
+  api: SYNO.FotoTeam.Thumbnail
+  version: 2
+  id: 44799
+  SynoToken: {{synoToken}}
+  method: get
+  type: unit
+  cache_key: 44799_1699748818
+  size: xl
+  ~mode: download
+}

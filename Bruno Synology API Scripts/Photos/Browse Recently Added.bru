@@ -1,0 +1,21 @@
+meta {
+  name: Browse Recently Added
+  type: http
+  seq: 5
+}
+
+get {
+  url: http://127.0.0.1:5000/webapi/entry.cgi?api=SYNO.FotoTeam.Browse.RecentlyAdded&version=5&method=list&offset=0&limit=5&SynoToken={{synoToken}}&additional=["thumbnail","folder"]
+  body: none
+  auth: inherit
+}
+
+params:query {
+  api: SYNO.FotoTeam.Browse.RecentlyAdded
+  version: 5
+  method: list
+  offset: 0
+  limit: 5
+  SynoToken: {{synoToken}}
+  additional: ["thumbnail","folder"]
+}

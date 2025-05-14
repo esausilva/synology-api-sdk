@@ -1,0 +1,20 @@
+meta {
+  name: Download
+  type: http
+  seq: 6
+}
+
+get {
+  url: http://127.0.0.1:5000/webapi/entry.cgi?api=SYNO.FotoTeam.Download&version=2&SynoToken={{synoToken}}&method=download&unit_id=[54828,25276,25245]
+  body: none
+  auth: inherit
+}
+
+params:query {
+  api: SYNO.FotoTeam.Download
+  version: 2
+  SynoToken: {{synoToken}}
+  method: download
+  unit_id: [54828,25276,25245]
+  ~cache_key: [54828_1741014759,25276_1677976147,25245_1677976146]
+}

@@ -1,0 +1,20 @@
+meta {
+  name: Browse Album
+  type: http
+  seq: 1
+}
+
+get {
+  url: http://127.0.0.1:5000/webapi/entry.cgi?api=SYNO.Foto.Browse.Album&version=5&method=list&offset=0&limit=100&SynoToken={{synoToken}}
+  body: none
+  auth: inherit
+}
+
+params:query {
+  api: SYNO.Foto.Browse.Album
+  version: 5
+  method: list
+  offset: 0
+  limit: 100
+  SynoToken: {{synoToken}}
+}

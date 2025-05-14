@@ -1,0 +1,21 @@
+meta {
+  name: Browse Root Folder Subfolder
+  type: http
+  seq: 3
+}
+
+get {
+  url: http://127.0.0.1:5000/webapi/entry.cgi?api=SYNO.FotoTeam.Browse.Folder&version=2&method=list&SynoToken={{synoToken}}&id=587&offset=0&limit=20
+  body: none
+  auth: inherit
+}
+
+params:query {
+  api: SYNO.FotoTeam.Browse.Folder
+  version: 2
+  method: list
+  SynoToken: {{synoToken}}
+  id: 587
+  offset: 0
+  limit: 20
+}

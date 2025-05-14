@@ -1,0 +1,19 @@
+meta {
+  name: Search - Stop
+  type: http
+  seq: 7
+}
+
+get {
+  url: http://127.0.0.1:5000/webapi/entry.cgi?api=SYNO.FileStation.Search&version=2&method=stop&taskid="{{searchTaskid}}"&SynoToken={{synoToken}}
+  body: none
+  auth: inherit
+}
+
+params:query {
+  api: SYNO.FileStation.Search
+  version: 2
+  method: stop
+  taskid: "{{searchTaskid}}"
+  SynoToken: {{synoToken}}
+}

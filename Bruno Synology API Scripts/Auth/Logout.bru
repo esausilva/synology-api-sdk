@@ -1,0 +1,18 @@
+meta {
+  name: Logout
+  type: http
+  seq: 3
+}
+
+get {
+  url: http://127.0.0.1:5000/webapi/entry.cgi?api=SYNO.API.Auth&version=7&method=logout&_sid={{sid}}
+  body: none
+  auth: inherit
+}
+
+params:query {
+  api: SYNO.API.Auth
+  version: 7
+  method: logout
+  _sid: {{sid}}
+}

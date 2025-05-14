@@ -1,0 +1,24 @@
+meta {
+  name: Search - List
+  type: http
+  seq: 6
+}
+
+get {
+  url: http://127.0.0.1:5000/webapi/entry.cgi?api=SYNO.FileStation.Search&version=2&method=list&taskid="{{searchTaskid}}"&limit=3&SynoToken={{synoToken}}&offset=0
+  body: none
+  auth: inherit
+}
+
+params:query {
+  api: SYNO.FileStation.Search
+  version: 2
+  method: list
+  taskid: "{{searchTaskid}}"
+  limit: 3
+  SynoToken: {{synoToken}}
+  offset: 0
+  ~additional: ["real_path","time","size","owner","perm","mount_point_type","type"]
+  ~pattern: *.mp4
+  ~sort_by: name
+}

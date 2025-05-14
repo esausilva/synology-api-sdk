@@ -1,9 +1,43 @@
 # Synology API SDK
 
-> The SDK is still in development and things will be changing as I code it.
+A C# SDK to access the Synology NAS APIs in DiskStation Manager (DSM).
 
-The intent of the SDK is to easily call Synology NAS APIs in a consistent manner. My use case will be calling the Synology FileStation API, but it could also be extended to call other Synology APIs by following the established patterns in the SDK.
+## Recommendations
 
-Besides including some of the FileStation APIs, I will also include some Photo APIs.
+I would recommend getting familiarized with the Synology APIs first before implementing this SDK. You will have a much easier time implementing this SDK.
 
-Once I complete development, I will be publishing to NuGet.
+I have included [Bruno API Client](https://www.usebruno.com/) scripts ([Bruno Synology API Scripts](./Bruno%20Synology%20API%20Scripts/)) to make it easier.
+
+Thew official Synology API documentation can be found at [Dev Center](https://www.synology.com/en-af/support/developer#tool). 
+
+### Some Notes
+
+Included implementations in this SDK are some of the FileStation APIs and some of the Photos APIs.
+
+There is no official Photos API documentation, what I have implemented in this SDK is what I gathered from various sources, including Synology's Community Forums, other repos, etc.
+
+## Installation
+
+You will need to have the following in your `appsettings.json` file.
+
+```json
+{
+  "UriBase": {
+    "ServerIpOrHostname": "<<SERVER_IP_OR_HOSTNAME>>",
+    "Port": 5000,
+    "UseHttps": false 
+  }
+}
+```
+
+This wires up DI for the base address in [SdkConfigurationExtensions.ConfigureSynologyApiSdkDependencies](./src/Synology.Api.Sdk/Config/SdkConfigurationExtensions.cs) class.
+
+- `ServerIpOrHostname`: _Required_ - This is usually your NAS IP address or if you have it configured to be accessible via a hostname. If this is not provided, the SDK will throw and exception.
+- `Port`: _Optional_ - The NAS' default port number is `500`.
+- `UseHttps`: Optional - Defaults to `false`. 
+
+The end result will be a base URI similar to `http://127.0.0.1:500`.
+
+---
+
+> More documentation come...

@@ -1,0 +1,28 @@
+meta {
+  name: Browse Item
+  type: http
+  seq: 4
+}
+
+get {
+  url: http://127.0.0.1:5000/webapi/entry.cgi?api=SYNO.FotoTeam.Browse.Item&version=6&method=list&offset=0&limit=10&additional=["thumbnail","folder"]&SynoToken={{synoToken}}&folder_id=595
+  body: none
+  auth: inherit
+}
+
+params:query {
+  api: SYNO.FotoTeam.Browse.Item
+  version: 6
+  method: list
+  offset: 0
+  limit: 10
+  additional: ["thumbnail","folder"]
+  SynoToken: {{synoToken}}
+  folder_id: 595
+  ~recursive: true
+  ~time_to: 1739977588
+  ~sort_by: ["filesize"]
+  ~sort_direction: asc
+  ~folder_path: ["/Marriage"]
+  ~parent_folder_id: 5
+}

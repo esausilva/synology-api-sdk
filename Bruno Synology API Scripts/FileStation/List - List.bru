@@ -1,0 +1,27 @@
+meta {
+  name: List - List
+  type: http
+  seq: 2
+}
+
+get {
+  url: http://127.0.0.1:5000/webapi/entry.cgi?api=SYNO.FileStation.List&version=2&method=list&SynoToken={{synoToken}}&folder_path=/photo/Marriage&additional=["real_path","type"]&limit=2&goto_path=/photo/Marriage/2017/2017 Married Misc
+  body: none
+  auth: inherit
+}
+
+params:query {
+  api: SYNO.FileStation.List
+  version: 2
+  method: list
+  SynoToken: {{synoToken}}
+  folder_path: /photo/Marriage
+  additional: ["real_path","type"]
+  limit: 2
+  goto_path: /photo/Marriage/2017/2017 Married Misc
+  ~onlywritable: false
+  ~offset: 2
+  ~sort_by: atime
+  ~sort_direction: desc
+  ~filetype: "all"
+}
