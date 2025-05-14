@@ -4,11 +4,11 @@ A C# SDK to access the Synology NAS APIs in DiskStation Manager (DSM).
 
 ## Recommendations
 
-I would recommend getting familiarized with the Synology APIs first before implementing this SDK. You will have a much easier time implementing this SDK.
+I would recommend getting familiarized with the Synology APIs first before implementing this SDK, you will have a much easier time implementing it.
 
 I have included [Bruno API Client](https://www.usebruno.com/) scripts ([Bruno Synology API Scripts](./Bruno%20Synology%20API%20Scripts/)) to make it easier.
 
-Thew official Synology API documentation can be found at [Dev Center](https://www.synology.com/en-af/support/developer#tool). 
+The official Synology API documentation can be found at [Dev Center](https://www.synology.com/en-af/support/developer#tool). 
 
 ### Some Notes
 
@@ -33,10 +33,10 @@ You will need to have the following in your `appsettings.json` file.
 This wires up DI for the base address in [SdkConfigurationExtensions.ConfigureSynologyApiSdkDependencies](./src/Synology.Api.Sdk/Config/SdkConfigurationExtensions.cs) class.
 
 - `ServerIpOrHostname`: _Required_ - This is usually your NAS IP address or if you have it configured to be accessible via a hostname. If this is not provided, the SDK will throw and exception.
-- `Port`: _Optional_ - The NAS' default port number is `500`.
-- `UseHttps`: Optional - Defaults to `false`. 
+- `Port`: _Optional_ - The NAS' default port number is `5000`.
+- `UseHttps`: _Optional_ - Defaults to `false`. 
 
-The end result will be a base URI similar to `http://127.0.0.1:500`.
+The end result will be a base URI similar to `http://127.0.0.1:5000`.
 
 ---
 
