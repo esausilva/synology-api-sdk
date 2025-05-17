@@ -1,0 +1,3 @@
+# FotoTeamThumbnailRequest
+
+> More to come

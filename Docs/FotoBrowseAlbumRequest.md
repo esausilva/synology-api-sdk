@@ -1,0 +1,3 @@
+# FotoBrowseAlbumRequest
+
+> More to come

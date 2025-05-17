@@ -1,0 +1,3 @@
+# FotoTeamBrowseFolderRequest
+
+> More to come

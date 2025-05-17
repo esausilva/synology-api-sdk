@@ -1,0 +1,3 @@
+# FotoTeamSearchSearchRequest
+
+> More to come
