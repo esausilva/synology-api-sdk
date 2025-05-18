@@ -8,7 +8,7 @@ Non-authenticated endpoint.
 Sample URL
 
 ```
-http://127.0.0.1:4000/webapi/entry.cgi?api=SYNO.API.Auth&version=7&method=login&account=serviceaccount&passwd=passwd123&enable_syno_token=yes
+http://127.0.0.1:5000/webapi/entry.cgi?api=SYNO.API.Auth&version=7&method=login&account=serviceaccount&passwd=passwd123&enable_syno_token=yes
 ```
 
 ## Methods

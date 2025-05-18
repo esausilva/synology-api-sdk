@@ -8,7 +8,7 @@ Authenticated endpoint.
 Sample URL
 
 ```
-http://127.0.0.1:4000/webapi/entry.cgi?api=SYNO.API.Auth&version=7&method=logout&_sid=1234
+http://127.0.0.1:5000/webapi/entry.cgi?api=SYNO.API.Auth&version=7&method=logout&_sid=1234
 ```
 
 ## Methods
