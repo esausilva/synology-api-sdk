@@ -71,11 +71,19 @@ This interface is used to send an asynchronous GET request to the specified URL,
 #### Example Code
 
 ```csharp
+/*
+Configure Synology API SDK DI container.
+*/
+serviceCollection.ConfigureSynologyApiSdkDependencies(Configuration);
+
+/*
+Inject required services used to build the fully formed URL and the service to call the Synology API.
+*/
 var synoApiRequestBuilder = services.GetRequiredService<ISynologyApiRequestBuilder>();
 var synoApiService = services.GetRequiredService<ISynologyApiService>();
 
 /*
-This will create a request to call SYNO.API.Info. The parameters for each Synology API Requests will become query parameters when the final URL is formed.
+This will create a request to call SYNO.API.Info API endpoint. The parameters for each Synology API Requests will become query parameters when the final URL is formed.
 */
 var apiInfoRequest = new ApiInfoRequest(
     method: Api.Info_Query,
@@ -83,7 +91,6 @@ var apiInfoRequest = new ApiInfoRequest(
 
 /*
 `BuildUrl` takes in a Synology API request and returns a fully formed URL to call the specified Synology API.
-
 In this example, the result will be: http://127.0.0.1:5000/webapi/entry.cgi?api=SYNO.API.Info&version=1&method=query
 */
 var apiInfoUrl = synoApiRequestBuilder.BuildUrl(apiInfoRequest);
