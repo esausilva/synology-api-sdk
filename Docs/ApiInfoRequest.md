@@ -1,5 +1,7 @@
 # ApiInfoRequest
 
+> SYNO.API.Info
+
 Non-authenticated endpoint.
 
 - Request: [ApiInfoRequest](../src/Synology.Api.Sdk/SynologyApi/ApiInfo/Request/ApiInfoRequest.cs)

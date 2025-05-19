@@ -1,5 +1,7 @@
 # LogoutRequest
 
+> SYNO.API.Auth
+
 Authenticated endpoint.
 
 - Request: [LogoutRequest](../src/Synology.Api.Sdk/SynologyApi/Auth/Request/LogoutRequest.cs)

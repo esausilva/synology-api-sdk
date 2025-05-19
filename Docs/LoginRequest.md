@@ -1,5 +1,7 @@
 # LoginRequest
 
+> SYNO.API.Auth
+
 Non-authenticated endpoint.
 
 - Request: [LoginRequest](../src/Synology.Api.Sdk/SynologyApi/Auth/Request/LoginRequest.cs)
