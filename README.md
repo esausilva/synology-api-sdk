@@ -127,7 +127,3 @@ _It is possible I have not included all of the parameters in the official API do
 If you find this SDK useful in any way, consider getting me a coffee by clicking on the image below. I would really appreciate it!
 
 [![Buy Me A Coffee](https://www.buymeacoffee.com/assets/img/custom_images/black_img.png)](https://www.buymeacoffee.com/esausilva)
-
----
-
-> More documentation come...
