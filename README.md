@@ -122,6 +122,18 @@ I have also included a [Sample Consumer](./src/Synology.Api.Sdk.ConsumerSample/)
 
 _It is possible I have not included all of the parameters in the official API docs for each request. If that is the case, there is an option to add additional parameters to each request via a `key`-`value` dictionary when creating the request object._
 
+## Contributing
+
+Follow the naming conventions for Synology API Request and Response classes.
+
+Example: 
+- API endpoint: `SYNO.FileStation.List`
+- Request-Response C# classes: `FileStationListRequest.cs` and `FileStationListResponse.cs`
+
+Add corresponding unit tests following the existing tests patterns.
+
+Make sure to test by calling your NAS and getting a successful response.
+
 ## Giving Back
 
 If you find this SDK useful in any way, consider getting me a coffee by clicking on the image below. I would really appreciate it!
