@@ -5,7 +5,7 @@
 Authenticated endpoint.
 
 - Request: [FileStationSearchRequest](../src/Synology.Api.Sdk/SynologyApi/FileStation/Request/FileStationSearchRequest.cs)
-- Response: [FileStationSearchStartResponse](../src/Synology.Api.Sdk/SynologyApi/FileStation/Response/FileStationSearchStartResponse.cs)
+- Response: [FileStationSearchStartResponse](../src/Synology.Api.Sdk/SynologyApi/FileStation/Response/FileStationSearchStartResponse.cs), [FileStationSearchStopResponse](../src/Synology.Api.Sdk/SynologyApi/FileStation/Response/FileStationSearchStopResponse.cs), [FileStationSearchListResponse](../src/Synology.Api.Sdk/SynologyApi/FileStation/Response/FileStationSearchListResponse.cs), [FileStationSearchCleanResponse](../src/Synology.Api.Sdk/SynologyApi/FileStation/Response/FileStationSearchCleanResponse.cs)
 
 Sample URL
 

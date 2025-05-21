@@ -5,7 +5,7 @@
 Authenticated endpoint.
 
 - Request: [FileStationListRequest](../src/Synology.Api.Sdk/SynologyApi/FileStation/Request/FileStationListRequest.cs)
-- Response: [FileStationListFileResponse](../src/Synology.Api.Sdk/SynologyApi/FileStation/Response/FileStationListFileResponse.cs)
+- Response: [FileStationListFileResponse](../src/Synology.Api.Sdk/SynologyApi/FileStation/Response/FileStationListFileResponse.cs), [FileStationListShareResponse](../src/Synology.Api.Sdk/SynologyApi/FileStation/Response/FileStationListShareResponse.cs)
 
 Sample URL
 
