@@ -5,6 +5,15 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <UserSecretsId>c1778d59-42bf-4adc-af7a-d8232e2fd63f</UserSecretsId>
+        <PackageId>Synology.API.SDK</PackageId>
+        <Title>Synology API SDK</Title>
+        <Authors>Esau Silva</Authors>
+        <Description>A C# SDK to access the Synology NAS APIs in DiskStation Manager (DSM).</Description>
+        <Copyright>Esau Silva</Copyright>
+        <PackageProjectUrl>https://github.com/esausilva/synology-api-sdk</PackageProjectUrl>
+        <PackageLicenseExpression>GPL-3.0-or-later</PackageLicenseExpression>
+        <RepositoryUrl>https://github.com/esausilva/synology-api-sdk</RepositoryUrl>
+        <RepositoryType>git</RepositoryType>
     </PropertyGroup>
 
     <ItemGroup>
