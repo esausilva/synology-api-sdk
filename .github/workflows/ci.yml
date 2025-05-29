@@ -2,8 +2,6 @@ name: .NET Test and Publish Nuget Package
 
 on:
   push:
-    branches:
-      - "**"
     tags: 
       - "v[0-9]+.[0-9]+.[0-9]+"
 
