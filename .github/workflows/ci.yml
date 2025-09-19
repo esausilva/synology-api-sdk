@@ -50,7 +50,7 @@ jobs:
     - name: Build
       run: dotnet build --configuration Release --no-restore /p:Version=${VERSION}
     - name: Pack
-      run: dotnet pack --output /nupkgs --no-restore --no-build /p:PackageVersion=${VERSION}
+      run: dotnet pack --output nupkgs --no-restore --no-build /p:PackageVersion=${VERSION}
     - name: Push NuGet
       if: github.ref_type == 'tag' && startsWith(github.ref, 'refs/tags/v')
-      run: dotnet nuget push /nupkgs/Synology.Api.Sdk.${VERSION}.nupkg -k ${{ secrets.NUGET_API_KEY }} -s https://api.nuget.org/v3/index.json
+      run: dotnet nuget push nupkgs/Synology.Api.Sdk.${VERSION}.nupkg -k ${{ secrets.NUGET_API_KEY }} -s https://api.nuget.org/v3/index.json
