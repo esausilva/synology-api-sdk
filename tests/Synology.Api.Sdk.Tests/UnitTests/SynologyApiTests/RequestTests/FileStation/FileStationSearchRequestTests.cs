@@ -109,7 +109,7 @@ public class FileStationSearchRequestTests : RequestTestsBase
     {
         await Assert
             .That(_url)
-            .Contains("taskid=task123");
+            .Contains("taskid=%22task123%22");
     }
     
     [Test]
