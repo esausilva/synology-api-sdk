@@ -35,5 +35,5 @@ var fileStationListRequest = new FileStationListRequest(
     onlyWritable: false,
     sortBy: "mtime");
 var fileStationListUrl = synoApiRequestBuilder.BuildUrl(fileStationListRequest);
-var fileStationListResponse = await synoApiService.GetAsync<FotoBrowseAlbumResponse>(fileStationListUrl, cancellationToken);
+var fileStationListResponse = await synoApiService.GetAsync<FileStationListFileResponse>(fileStationListUrl, cancellationToken);
 ```

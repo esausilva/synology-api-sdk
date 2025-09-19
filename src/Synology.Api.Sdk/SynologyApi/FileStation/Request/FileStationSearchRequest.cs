@@ -78,7 +78,7 @@ public sealed class FileStationSearchRequest : RequestBase
         Pattern = pattern;
         Extension = extension;
         Recursive = recursive;
-        TaskId = taskId;
+        TaskId = $"\"{taskId}\"";
         Offset = offset;
         Limit = limit;
         Additional = additional;
