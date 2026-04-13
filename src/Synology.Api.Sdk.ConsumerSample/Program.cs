@@ -8,6 +8,8 @@ using Synology.Api.Sdk.SynologyApi.ApiInfo.Request;
 using Synology.Api.Sdk.SynologyApi.ApiInfo.Response;
 using Synology.Api.Sdk.SynologyApi.Auth.Request;
 using Synology.Api.Sdk.SynologyApi.Auth.Response;
+using Synology.Api.Sdk.SynologyApi.FileStation.Request;
+using Synology.Api.Sdk.SynologyApi.FileStation.Response;
 using Synology.Api.Sdk.SynologyApi.Foto.Request;
 using Synology.Api.Sdk.SynologyApi.Foto.Response;
 using Synology.Api.Sdk.SynologyApi.FotoTeam.Request;
@@ -55,6 +57,43 @@ var loginResponse = await synoApiService.GetAsync<LoginResponse>(loginUrl, cance
 
 Console.WriteLine(loginUrl);
 Console.WriteLine(SerializeResponse(loginResponse));
+
+// ------ FileStation.Search
+var searchStartRequest = new FileStationSearchRequest(
+    version: apiInfoResponse.Data.SynoFileStationSearch.MaxVersion,
+    method: FileStation.Search_Start,
+    folderPaths: ["/photo"],
+    fileType: "file",
+    synoToken: loginResponse.Data.SynoToken!);
+var searchStartUrl = synoApiRequestBuilder.BuildUrl(searchStartRequest);
+var searchStartResponse = await synoApiService.GetAsync<FileStationSearchStartResponse>(searchStartUrl, cancellationToken);
+
+Console.WriteLine(searchStartUrl);
+Console.WriteLine(SerializeResponse(searchStartResponse));
+
+var searchListRequest = new FileStationSearchRequest(
+    version: apiInfoResponse.Data.SynoFileStationSearch.MaxVersion,
+    method: FileStation.Search_List,
+    taskId: searchStartResponse.Data.TaskId,
+    limit: 5,
+    offset: 0,
+    synoToken: loginResponse.Data.SynoToken!);
+var searchListUrl = synoApiRequestBuilder.BuildUrl(searchListRequest);
+var searchListResponse = await synoApiService.GetAsync<FileStationSearchListResponse>(searchListUrl, cancellationToken);
+
+Console.WriteLine(searchListUrl);
+Console.WriteLine(SerializeResponse(searchListResponse));
+
+var searchCleanRequest = new FileStationSearchRequest(
+    version:apiInfoResponse.Data.SynoFileStationSearch.MaxVersion,
+    method: FileStation.Search_Clean,
+    taskId: searchStartResponse.Data.TaskId,
+    synoToken: loginResponse.Data.SynoToken!);
+var searchCleanUrl = synoApiRequestBuilder.BuildUrl(searchCleanRequest);
+var searchCleanResponse = await synoApiService.GetAsync<FileStationSearchCleanResponse>(searchCleanUrl, cancellationToken);
+
+Console.WriteLine(searchCleanUrl);
+Console.WriteLine(SerializeResponse(searchCleanResponse));
 
 // ------ Foto.Browse.Album
 var fotoBrowseAlbumRequest = new FotoBrowseAlbumRequest(
