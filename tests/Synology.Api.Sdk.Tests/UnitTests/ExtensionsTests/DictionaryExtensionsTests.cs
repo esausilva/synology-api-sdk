@@ -28,8 +28,8 @@ public class DictionaryExtensionsTests
         Dictionary.Merge(additionalItems);
         
         await Assert
-            .That(Dictionary)
-            .HasCount(5);
+            .That(Dictionary.Count)
+            .IsEqualTo(5);
     }
     
     [Test]

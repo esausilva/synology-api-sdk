@@ -1,6 +1,5 @@
 using Synology.Api.Sdk.Constants;
 using Synology.Api.Sdk.SynologyApi.Auth.Request;
-using TUnit.Assertions.AssertConditions.Throws;
 
 namespace Synology.Api.Sdk.Tests.UnitTests.SynologyApiTests.RequestTests.Auth;
 

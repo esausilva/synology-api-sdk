@@ -1,5 +1,4 @@
 using Synology.Api.Sdk.Extensions;
-using TUnit.Assertions.AssertConditions.Throws;
 
 namespace Synology.Api.Sdk.Tests.UnitTests.ExtensionsTests;
 
