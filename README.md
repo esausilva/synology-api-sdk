@@ -2,6 +2,22 @@
 
 A C# SDK to access the Synology NAS APIs in DiskStation Manager (DSM).
 
+## Table of Contents
+
+- [Recommendations](#recommendations)
+- [Implemented APIs](#implemented-apis)
+- [Installation](#installation)
+- [Basic Usage](#basic-usage)
+  - [ISynologyApiRequestBuilder](#isynologyapirequestbuilder)
+  - [ISynologyApiService](#isynologyapiservice)
+    - [Example Code](#example-code)
+- [Synology API Requests](#synology-api-requests)
+- [Contributing](#contributing)
+- [Real World Example](#real-world-example)
+- [Giving Back](#giving-back)
+
+---
+
 ## Recommendations
 
 I would recommend getting familiarized with the Synology APIs first before implementing this SDK, you will have a much easier time implementing it.
@@ -101,7 +117,7 @@ var apiInfoUrl = synoApiRequestBuilder.BuildUrl(apiInfoRequest);
 var apiInfoResponse = await synoApiService.GetAsync<ApiInfoResponse>(apiInfoUrl, cancellationToken);
 ```
 
-I have also included a [Sample Consumer](./src/Synology.Api.Sdk.ConsumerSample/) project for more complete usage examples.
+I have also included a [Consumer Sample](./Docs/ConsumerSample.md) project for more complete usage examples.
 
 ## Synology API Requests
 
@@ -133,6 +149,11 @@ Example:
 Add corresponding unit tests following the existing tests patterns.
 
 Make sure to test by calling your NAS and getting a successful response.
+
+## Real World Example
+
+[Synology Photos Slideshow API](https://github.com/esausilva/synology-photos-slideshow-api) — A .NET REST API I created that implements this SDK to download random photos from a Synology NAS, convert them to WebP, and serve them for slideshow clients. It features scheduled download jobs, real-time updates via SignalR, and optional geolocation powered by Google Maps.
+
 
 ## Giving Back
 

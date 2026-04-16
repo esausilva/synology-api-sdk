@@ -8,23 +8,22 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: tests/Synology.Api.Sdk.Tests
     steps:
     - name: Checkout
       uses: actions/checkout@v4
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
       with:
-        dotnet-version: 9.x
+        dotnet-version: 10.x
         dotnet-quality: 'ga'
     - name: Restore
       run: dotnet restore
+      working-directory: tests/Synology.Api.Sdk.Tests
     - name: Build
       run: dotnet build --configuration Release --no-restore
+      working-directory: tests/Synology.Api.Sdk.Tests
     - name: Test
-      run: dotnet test --configuration Release --no-build
+      run: dotnet test --project tests/Synology.Api.Sdk.Tests/Synology.Api.Sdk.Tests.csproj --configuration Release --no-build
 
   build:
     runs-on: ubuntu-latest
@@ -43,7 +42,9 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
       with:
-        dotnet-version: 9.x
+        dotnet-version: |
+          9.x
+          10.x
         dotnet-quality: 'ga'
     - name: Restore
       run: dotnet restore
