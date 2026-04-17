@@ -30,7 +30,7 @@ The official Synology API documentation can be found at [Dev Center](https://www
 
 Included implementations in this SDK are some of the FileStation APIs and some of the Photos APIs.
 
-There is no official Photos API documentation, what I have implemented in this SDK is what I gathered from various sources, including Synology's Community Forums, other repos, etc.
+There is no official Photos API documentation; what I have implemented in this SDK is what I gathered from various sources, including Synology's Community Forums, other repos, etc.
 
 | API | Description
 | --- | --- |
@@ -64,11 +64,11 @@ You will need to have the following in your `appsettings.json` file.
 
 This wires up DI for the base address in [SdkConfigurationExtensions.ConfigureSynologyApiSdkDependencies](./src/Synology.Api.Sdk/Config/SdkConfigurationExtensions.cs) class.
 
-- `ServerIpOrHostname`: _Required_ - This is usually your NAS IP address or if you have it configured to be accessible via a hostname. If this is not provided, the SDK will throw `Microsoft.Extensions.Options.OptionsValidationException` exception.
-- `Port`: _Optional_ - The NAS' default port number is `5000`.
-- `UseHttps`: _Optional_ - Defaults to `false`. 
+- `ServerIpOrHostname`: _Required_ – This is usually your NAS IP address or if you have it configured to be accessible via a hostname. If this is not provided, the SDK will throw `Microsoft.Extensions.Options.OptionsValidationException` exception.
+- `Port`: _Optional_ – The NAS' default port number is `5000`.
+- `UseHttps`: _Optional_ – Defaults to `false`. 
 
-The end result will be a base URI similar to `http://127.0.0.1:5000`.
+The result will be a base URI similar to `http://127.0.0.1:5000`.
 
 ## Basic Usage
 
