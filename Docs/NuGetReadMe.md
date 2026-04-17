@@ -22,7 +22,7 @@ You will need to have the following in your `appsettings.json` file.
 }
 ```
 
-This wires up DI for the base address in [SdkConfigurationExtensions.ConfigureSynologyApiSdkDependencies](./src/Synology.Api.Sdk/Config/SdkConfigurationExtensions.cs) class.
+This wires up DI for the base address in `SdkConfigurationExtensions.ConfigureSynologyApiSdkDependencies` class.
 
 - `ServerIpOrHostname`: _Required_ – This is usually your NAS IP address or if you have it configured to be accessible via a hostname. If this is not provided, the SDK will throw `Microsoft.Extensions.Options.OptionsValidationException` exception.
 - `Port`: _Optional_ – The NAS' default port number is `5000`.
