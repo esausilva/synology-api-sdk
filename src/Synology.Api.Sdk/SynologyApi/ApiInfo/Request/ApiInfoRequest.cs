@@ -4,7 +4,7 @@ using Synology.Api.Sdk.SynologyApi.Shared.Request;
 namespace Synology.Api.Sdk.SynologyApi.ApiInfo.Request;
 
 /// <summary>
-/// Represents a request to information about the Synology APIs available for use on the target DiskStation.
+/// Represents a request to retrieve information about the Synology APIs available for use on the target DiskStation.
 /// <br/><br/>
 /// <b>Target API</b>: SYNO.API.Info
 /// </summary>

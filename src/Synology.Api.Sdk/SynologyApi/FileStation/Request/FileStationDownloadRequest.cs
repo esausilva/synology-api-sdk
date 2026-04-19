@@ -16,7 +16,7 @@ public sealed class FileStationDownloadRequest : RequestBase
     public string? Mode { get; }
 
     /// <summary>
-    /// Represents a request to retrieve a list of files and folders in a directory.
+    /// Represents a request to download an item(s) from a folder or subfolder.
     /// <br/><br/>
     /// <b>Target API</b>: SYNO.FileStation.Download
     /// </summary>

@@ -34,15 +34,15 @@ There is no official Photos API documentation; what I have implemented in this S
 
 | API | Description
 | --- | --- |
-| SYNO.API.Info | Represents a request to information about the Synology APIs available for use on the target DiskStation. |
+| SYNO.API.Info | Represents a request to retrieve information about the Synology APIs available for use on the target DiskStation. |
 | SYNO.API.Auth | Represents a request to authenticate to Synology NAS. |
-| SYNO.FileStation.Download | Represents a request to retrieve a list of files and folders in a directory. |
+| SYNO.FileStation.Download | Represents a request to download an item(s) from a folder or subfolder. |
 | SYNO.FileStation.List | Represents a request to retrieve a list of files and folders in a directory. |
 | SYNO.FileStation.Search | Represents a request to retrieve a list of files and folders in a directory based on a search criteria. |
 | SYNO.Foto.Browse.Album | Represents a request to retrieve a list of albums in your Personal Space. |
 | SYNO.FotoTeam.Browse.Folder | Represents a request to retrieve a list of folders in the Shared Space. |
 | SYNO.FotoTeam.Browse.Item | Represents a request to retrieve a list of items within a folder in the Shared Space. |
-| FotoTeam.Browse.RecentlyAdded | Represents a request to retrieve a list of recently added items in the Shared Space. |
+| SYNO.FotoTeam.Browse.RecentlyAdded | Represents a request to retrieve a list of recently added items in the Shared Space. |
 | SYNO.FotoTeam.Browse.Timeline | Represents a request to retrieve a list of item counts in the timeline by year and month in the Shared Space. |
 | SYNO.FotoTeam.Download | Represents a request to download an item(s) in the Shared Space. |
 | SYNO.FotoTeam.Search.Search | Represents a request to retrieve a count of items based on a keyword in the Shared Space. |
@@ -138,7 +138,21 @@ I have also included a [Consumer Sample](./Docs/ConsumerSample.md) project for m
 - [FotoTeamSearchSearchRequest](./Docs/FotoTeamSearchSearchRequest.md)
 - [FotoTeamThumbnailRequest](./Docs/FotoTeamThumbnailRequest.md)
 
-_It is possible I have not included all of the parameters in the official API docs for each request. If that is the case, there is an option to add additional parameters to each request via a `key`-`value` dictionary when creating the request object._
+It is possible I have not included all the parameters in the official API docs for each request. If that is the case, there is an option to add additional parameters to each request via a `key`-`value` dictionary when creating the request object.
+
+Example:
+
+```csharp
+var apiInfoRequest = new ApiInfoRequest(
+    method: Api.Info_Query,
+    version: 1)
+{
+    AdditionalParameters = new Dictionary<string, string>
+    {
+        { "query", "all" }
+    }
+};
+```
 
 ## Contributing
 

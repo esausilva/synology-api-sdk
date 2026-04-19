@@ -22,7 +22,7 @@ public sealed class FotoTeamBrowseRecentlyAddedRequest : RequestBase
     /// <summary>
     /// Represents a request to retrieve a list of recently added items in the Shared Space.
     /// <br/><br/>
-    /// <b>Target API</b>: FotoTeam.Browse.RecentlyAdded
+    /// <b>Target API</b>: SYNO.FotoTeam.Browse.RecentlyAdded
     /// </summary>
     /// <exception cref="ArgumentException">
     /// Thrown if the <paramref name="version"/> parameter is zero or negative.
