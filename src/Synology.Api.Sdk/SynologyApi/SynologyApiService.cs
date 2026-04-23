@@ -45,7 +45,7 @@ internal sealed class SynologyApiService : ISynologyApiService
         var result = isError ?? new RawResponse
         {
             HttpResponse = response, 
-            Success = true, 
+            Success = response.IsSuccessStatusCode,
             StatusCode = response.StatusCode
         };
         
