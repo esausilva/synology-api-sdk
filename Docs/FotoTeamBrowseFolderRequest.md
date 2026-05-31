@@ -21,13 +21,11 @@ http://127.0.0.1:5000/webapi/entry.cgi?api=SYNO.FotoTeam.Browse.Folder&version=2
 ## Implementation
 
 ```csharp
-var synoApiRequestBuilder = services.GetRequiredService<ISynologyApiRequestBuilder>();
-var synoApiService = services.GetRequiredService<ISynologyApiService>();
+var synologyApiClient = services.GetRequiredService<ISynologyApiClient>();
 
 var fotoTeamBrowseFolderRequest = new FotoTeamBrowseFolderRequest(
     version: 2,
     method: SynologyApiMethods.FotoTeam.BrowseFolder_ListParents,
     synoToken: loginResponse.Data.SynoToken!);
-var fotoTeamBrowseFolderUrl = synoApiRequestBuilder.BuildUrl(fotoTeamBrowseFolderRequest);
-var fotoTeamBrowseFolderResponse = await synoApiService.GetAsync<FotoTeamBrowseFolderResponse>(fotoTeamBrowseFolderUrl, cancellationToken);
+var fotoTeamBrowseFolderResponse = await synologyApiClient.FotoTeamApi.BrowseFolderAsync(fotoTeamBrowseFolderRequest, cancellationToken);
 ```

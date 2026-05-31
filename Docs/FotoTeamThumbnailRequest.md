@@ -20,8 +20,7 @@ http://127.0.0.1:5000/webapi/entry.cgi?api=SYNO.FotoTeam.Thumbnail&version=2&id=
 ## Implementation
 
 ```csharp
-var synoApiRequestBuilder = services.GetRequiredService<ISynologyApiRequestBuilder>();
-var synoApiService = services.GetRequiredService<ISynologyApiService>();
+var synologyApiClient = services.GetRequiredService<ISynologyApiClient>();
 
 var fotoTeamThumbnailRequest = new FotoTeamThumbnailRequest(
     version: 2,
@@ -31,8 +30,7 @@ var fotoTeamThumbnailRequest = new FotoTeamThumbnailRequest(
     id: 44799,
     cacheKey: "44799_1699748818",
     size: "xl");
-var fotoTeamThumbnailUrl = synoApiRequestBuilder.BuildUrl(fotoTeamThumbnailRequest);
-var fotoTeamThumbnailResponse = await synoApiService.GetRawResponseAsync(fotoTeamThumbnailUrl, cancellationToken);
+var fotoTeamThumbnailResponse = await synologyApiClient.FotoTeamApi.ThumbnailAsync(fotoTeamThumbnailRequest, cancellationToken);
 
 await DownloadHelpers.DownloadImageOrZipFromFotoApi(
   Directory.GetCurrentDirectory(), 
@@ -43,4 +41,4 @@ await DownloadHelpers.DownloadImageOrZipFromFotoApi(
 
 The static method [DownloadHelpers.DownloadImageOrZipFromFotoApi](../src/Synology.Api.Sdk/SynologyApi/Helpers/DownloadHelpers.cs) downloads an image or ZIP file from the FotoTeam API and saves it to the specified path.
 
-You do not have to use this method to download the file, it is only provided for your convenience. [GetRawResponseAsync](../src/Synology.Api.Sdk/SynologyApi/ISynologyApiService.cs) returns [RawResponse](../src/Synology.Api.Sdk/SynologyApi/Shared/Response/RawResponse.cs), which includes the HTTP Response to do with it as you wish.
+You do not have to use this method to download the file, it is only provided for your convenience. `ThumbnailAsync` returns [RawResponse](../src/Synology.Api.Sdk/SynologyApi/Shared/Response/RawResponse.cs), which includes the HTTP Response to do with it as you wish.

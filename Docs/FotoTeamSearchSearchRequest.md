@@ -20,14 +20,12 @@ http://127.0.0.1:5000/webapi/entry.cgi?api=SYNO.FotoTeam.Search.Search&method=co
 ## Implementation
 
 ```csharp
-var synoApiRequestBuilder = services.GetRequiredService<ISynologyApiRequestBuilder>();
-var synoApiService = services.GetRequiredService<ISynologyApiService>();
+var synologyApiClient = services.GetRequiredService<ISynologyApiClient>();
 
 var fotoTeamSearchSearchRequest = new FotoTeamSearchSearchRequest(
     version: 6,
     method: SynologyApiMethods.FotoTeam.SearchSearch_CountItem,
     keyword: "esau",
     synoToken: loginResponse.Data.SynoToken!);
-var fotoTeamSearchSearchUrl = synoApiRequestBuilder.BuildUrl(fotoTeamSearchSearchRequest);
-var fotoTeamSearchSearchResponse = await synoApiService.GetAsync<FotoTeamSearchSearchResponse>(fotoTeamSearchSearchUrl, cancellationToken);
+var fotoTeamSearchSearchResponse = await synologyApiClient.FotoTeamApi.SearchAsync(fotoTeamSearchSearchRequest, cancellationToken);
 ```

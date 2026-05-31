@@ -20,13 +20,11 @@ http://127.0.0.1:5000/webapi/entry.cgi?api=SYNO.FotoTeam.Browse.Timeline&method=
 ## Implementation
 
 ```csharp
-var synoApiRequestBuilder = services.GetRequiredService<ISynologyApiRequestBuilder>();
-var synoApiService = services.GetRequiredService<ISynologyApiService>();
+var synologyApiClient = services.GetRequiredService<ISynologyApiClient>();
 
 var fotoTeamBrowseTimelineRequest = new FotoTeamBrowseTimelineRequest(
     version: 5,
     method: SynologyApiMethods.FotoTeam.BrowseTimeline_Get,
     synoToken: loginResponse.Data.SynoToken!);
-var fotoTeamBrowseTimelineUrl = synoApiRequestBuilder.BuildUrl(fotoTeamBrowseTimelineRequest);
-var fotoTeamBrowseTimelineResponse = await synoApiService.GetAsync<FotoTeamBrowseTimelineResponse>(fotoTeamBrowseTimelineUrl, cancellationToken);
+var fotoTeamBrowseTimelineResponse = await synologyApiClient.FotoTeamApi.BrowseTimelineAsync(fotoTeamBrowseTimelineRequest, cancellationToken);
 ```

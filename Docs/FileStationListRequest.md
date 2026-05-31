@@ -22,8 +22,7 @@ http://127.0.0.1:5000/webapi/entry.cgi?api=SYNO.FileStation.List&version=2&metho
 ## Implementation
 
 ```csharp
-var synoApiRequestBuilder = services.GetRequiredService<ISynologyApiRequestBuilder>();
-var synoApiService = services.GetRequiredService<ISynologyApiService>();
+var synologyApiClient = services.GetRequiredService<ISynologyApiClient>();
 
 var fileStationListRequest = new FileStationListRequest(
     version: 2,
@@ -34,6 +33,5 @@ var fileStationListRequest = new FileStationListRequest(
     additional: ["real_path","type"],
     onlyWritable: false,
     sortBy: "mtime");
-var fileStationListUrl = synoApiRequestBuilder.BuildUrl(fileStationListRequest);
-var fileStationListResponse = await synoApiService.GetAsync<FileStationListFileResponse>(fileStationListUrl, cancellationToken);
+var fileStationListResponse = await synologyApiClient.FileStationApi.ListShareAsync(fileStationListRequest, cancellationToken);
 ```

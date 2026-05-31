@@ -20,13 +20,11 @@ http://127.0.0.1:5000/webapi/entry.cgi?api=SYNO.API.Auth&version=7&method=logout
 ## Implementation
 
 ```csharp
-var synoApiRequestBuilder = services.GetRequiredService<ISynologyApiRequestBuilder>();
-var synoApiService = services.GetRequiredService<ISynologyApiService>();
+var synologyApiClient = services.GetRequiredService<ISynologyApiClient>();
 
 var logoutRequest = new LogoutRequest(
     method: SynologyApiMethods.Api.Auth_Logout,
     version: 7,
     sid: loginResponse.Data.Sid);
-var logoutUrl = synoApiRequestBuilder.BuildUrl(logoutRequest);
-var logoutResponse = await synoApiService.GetAsync<LogoutResponse>(logoutUrl, cancellationToken);
+var logoutResponse = await synologyApiClient.AuthApi.LogoutAsync(logoutRequest, cancellationToken);
 ```

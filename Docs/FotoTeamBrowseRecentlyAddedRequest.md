@@ -20,8 +20,7 @@ http://127.0.0.1:5000/webapi/entry.cgi?api=SYNO.FotoTeam.Browse.RecentlyAdded&ve
 ## Implementation
 
 ```csharp
-var synoApiRequestBuilder = services.GetRequiredService<ISynologyApiRequestBuilder>();
-var synoApiService = services.GetRequiredService<ISynologyApiService>();
+var synologyApiClient = services.GetRequiredService<ISynologyApiClient>();
 
 var fotoTeamBrowseRecentlyAddedRequest = new FotoTeamBrowseRecentlyAddedRequest(
     version: 5,
@@ -30,6 +29,5 @@ var fotoTeamBrowseRecentlyAddedRequest = new FotoTeamBrowseRecentlyAddedRequest(
     limit: 10,
     synoToken: loginResponse.Data.SynoToken!,
     additional: ["thumbnail","folder"]);
-var fotoTeamBrowseRecentlyAddedUrl = synoApiRequestBuilder.BuildUrl(fotoTeamBrowseRecentlyAddedRequest);
-var fotoTeamBrowseRecentlyAddedResponse = await synoApiService.GetAsync<FotoTeamBrowseRecentlyAddedResponse>(fotoTeamBrowseRecentlyAddedUrl, cancellationToken);
+var fotoTeamBrowseRecentlyAddedResponse = await synologyApiClient.FotoTeamApi.BrowseRecentlyAddedAsync(fotoTeamBrowseRecentlyAddedRequest, cancellationToken);
 ```

@@ -20,8 +20,7 @@ http://127.0.0.1:5000/webapi/entry.cgi?api=SYNO.FileStation.Download&version=2&m
 ## Implementation
 
 ```csharp
-var synoApiRequestBuilder = services.GetRequiredService<ISynologyApiRequestBuilder>();
-var synoApiService = services.GetRequiredService<ISynologyApiService>();
+var synologyApiClient = services.GetRequiredService<ISynologyApiClient>();
 
 var fileStationDownloadRequest = new FileStationDownloadRequest(
     version: 2,
@@ -29,8 +28,7 @@ var fileStationDownloadRequest = new FileStationDownloadRequest(
     synoToken: loginResponse.Data.SynoToken!,
     mode: "download",
     path: ["/photo/path1/photo.jpg","/photo/path2/photo2.jpg"]);
-var fileStationDownloadUrl = synoApiRequestBuilder.BuildUrl(fileStationDownloadRequest);
-var fileStationDownloadResponse = await synoApiService.GetRawResponseAsync(fileStationDownloadUrl, cancellationToken);
+var fileStationDownloadResponse = await synologyApiClient.FileStationApi.DownloadAsync(fileStationDownloadRequest, cancellationToken);
 
 await DownloadHelpers.DownloadImageOrZipFromFileStationApi(
     Directory.GetCurrentDirectory(), 

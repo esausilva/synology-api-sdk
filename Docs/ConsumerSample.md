@@ -10,4 +10,4 @@
 3. API calls using `SynoToken` for auth (FileStation, Foto, FotoTeam)
 4. `LogoutRequest` → end session
 
-For file downloads, use `GetRawResponseAsync` + `DownloadHelpers.DownloadImageOrZipFromFotoApi` instead of the typed `GetAsync<T>`.
+For file downloads, use the `DownloadAsync` method on the corresponding domain client (e.g., `FotoTeamApi.DownloadAsync`) which returns a `RawResponse`, along with `DownloadHelpers.DownloadImageOrZipFromFotoApi`.

@@ -23,8 +23,7 @@ http://127.0.0.1:5000/webapi/entry.cgi?api=SYNO.FileStation.Search&version=2&met
 ## Implementation
 
 ```csharp
-var synoApiRequestBuilder = services.GetRequiredService<ISynologyApiRequestBuilder>();
-var synoApiService = services.GetRequiredService<ISynologyApiService>();
+var synologyApiClient = services.GetRequiredService<ISynologyApiClient>();
 
 var fileStationSearchStartRequest = new FileStationSearchRequest(
     version: 2,
@@ -33,6 +32,5 @@ var fileStationSearchStartRequest = new FileStationSearchRequest(
     folderPaths: ["/photo/Vacation"],
     fileType: "file"
 );
-var fileStationSearchUrl = synoApiRequestBuilder.BuildUrl(fileStationSearchStartRequest);
-var fileStationSearchStartResponse = await synoApiService.GetAsync<FileStationSearchStartResponse>(fileStationSearchUrl, cancellationToken);
+var fileStationSearchStartResponse = await synologyApiClient.FileStationApi.SearchStartAsync(fileStationSearchStartRequest, cancellationToken);
 ```

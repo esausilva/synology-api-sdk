@@ -20,14 +20,12 @@ http://127.0.0.1:5000/webapi/entry.cgi?api=SYNO.API.Auth&version=7&method=login&
 ## Implementation
 
 ```csharp
-var synoApiRequestBuilder = services.GetRequiredService<ISynologyApiRequestBuilder>();
-var synoApiService = services.GetRequiredService<ISynologyApiService>();
+var synologyApiClient = services.GetRequiredService<ISynologyApiClient>();
 
 var loginRequest = new LoginRequest(
     method: SynologyApiMethods.Api.Auth_Login,
     version: 7,
     account: configuration["User:Account"]!,
     password: configuration["User:Password"]!);
-var loginUrl = synoApiRequestBuilder.BuildUrl(loginRequest);
-var loginResponse = await synoApiService.GetAsync<LoginResponse>(loginUrl, cancellationToken);
+var loginResponse = await synologyApiClient.AuthApi.LoginAsync(loginRequest, cancellationToken);
 ```

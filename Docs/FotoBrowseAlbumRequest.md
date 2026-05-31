@@ -20,8 +20,7 @@ http://127.0.0.1:5000/webapi/entry.cgi?api=SYNO.Foto.Browse.Album&version=5&meth
 ## Implementation
 
 ```csharp
-var synoApiRequestBuilder = services.GetRequiredService<ISynologyApiRequestBuilder>();
-var synoApiService = services.GetRequiredService<ISynologyApiService>();
+var synologyApiClient = services.GetRequiredService<ISynologyApiClient>();
 
 var fotoBrowseAlbumRequest = new FotoBrowseAlbumRequest(
     version: 5,
@@ -29,6 +28,5 @@ var fotoBrowseAlbumRequest = new FotoBrowseAlbumRequest(
     offset: 0,
     limit: 10,
     synoToken: loginResponse.Data.SynoToken!);
-var fotoBrowseAlbumUrl = synoApiRequestBuilder.BuildUrl(fotoBrowseAlbumRequest);
-var fotoBrowseAlbumResponse = await synoApiService.GetAsync<FotoBrowseAlbumResponse>(fotoBrowseAlbumUrl, cancellationToken);
+var fotoBrowseAlbumResponse = await synologyApiClient.FotoApi.BrowseAlbumAsync(fotoBrowseAlbumRequest, cancellationToken);
 ```

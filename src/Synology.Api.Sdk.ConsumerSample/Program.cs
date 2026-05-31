@@ -1,17 +1,13 @@
-﻿using System.Text.Json;
+using System.Text.Json;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Synology.Api.Sdk.Config;
 using Synology.Api.Sdk.SynologyApi;
 using Synology.Api.Sdk.SynologyApi.ApiInfo.Request;
-using Synology.Api.Sdk.SynologyApi.ApiInfo.Response;
 using Synology.Api.Sdk.SynologyApi.Auth.Request;
-using Synology.Api.Sdk.SynologyApi.Auth.Response;
 using Synology.Api.Sdk.SynologyApi.FileStation.Request;
-using Synology.Api.Sdk.SynologyApi.FileStation.Response;
 using Synology.Api.Sdk.SynologyApi.Foto.Request;
-using Synology.Api.Sdk.SynologyApi.Foto.Response;
 using Synology.Api.Sdk.SynologyApi.FotoTeam.Request;
 using Synology.Api.Sdk.SynologyApi.Helpers;
 using static Synology.Api.Sdk.Constants.SynologyApiMethods;
@@ -32,18 +28,16 @@ var host = builder.ConfigureAppConfiguration((context, configBuilder) =>
 var services = host.Services;
 var configuration = services.GetRequiredService<IConfiguration>();
 
-var synoApiRequestBuilder = services.GetRequiredService<ISynologyApiRequestBuilder>();
-var synoApiService = services.GetRequiredService<ISynologyApiService>();
+var synologyApiClient = services.GetRequiredService<ISynologyApiClient>();
 var cancellationToken = GenerateCancellationToken();
 
 // ------ ApiInfo
 var apiInfoRequest = new ApiInfoRequest(
     method: Api.Info_Query,
     version: 1);
-var apiInfoUrl = synoApiRequestBuilder.BuildUrl(apiInfoRequest);
-var apiInfoResponse = await synoApiService.GetAsync<ApiInfoResponse>(apiInfoUrl, cancellationToken);
+var apiInfoResponse = await synologyApiClient.ApiInfoApi.QueryAsync(apiInfoRequest, cancellationToken);
 
-Console.WriteLine(apiInfoUrl);
+Console.WriteLine("ApiInfo Query");
 Console.WriteLine(SerializeResponse(apiInfoResponse));
 
 // ------ ApiAuth - Login
@@ -52,10 +46,9 @@ var loginRequest = new LoginRequest(
     version: apiInfoResponse.Data.SynoApiAuth.MaxVersion,
     account: configuration["User:Account"]!,
     password: configuration["User:Password"]!);
-var loginUrl = synoApiRequestBuilder.BuildUrl(loginRequest);
-var loginResponse = await synoApiService.GetAsync<LoginResponse>(loginUrl, cancellationToken);
+var loginResponse = await synologyApiClient.AuthApi.LoginAsync(loginRequest, cancellationToken);
 
-Console.WriteLine(loginUrl);
+Console.WriteLine("Auth Login");
 Console.WriteLine(SerializeResponse(loginResponse));
 
 // ------ FileStation.Search
@@ -65,10 +58,9 @@ var searchStartRequest = new FileStationSearchRequest(
     folderPaths: ["/photo"],
     fileType: "file",
     synoToken: loginResponse.Data.SynoToken!);
-var searchStartUrl = synoApiRequestBuilder.BuildUrl(searchStartRequest);
-var searchStartResponse = await synoApiService.GetAsync<FileStationSearchStartResponse>(searchStartUrl, cancellationToken);
+var searchStartResponse = await synologyApiClient.FileStationApi.SearchStartAsync(searchStartRequest, cancellationToken);
 
-Console.WriteLine(searchStartUrl);
+Console.WriteLine("FileStation Search Start");
 Console.WriteLine(SerializeResponse(searchStartResponse));
 
 var searchListRequest = new FileStationSearchRequest(
@@ -78,10 +70,9 @@ var searchListRequest = new FileStationSearchRequest(
     limit: 5,
     offset: 0,
     synoToken: loginResponse.Data.SynoToken!);
-var searchListUrl = synoApiRequestBuilder.BuildUrl(searchListRequest);
-var searchListResponse = await synoApiService.GetAsync<FileStationSearchListResponse>(searchListUrl, cancellationToken);
+var searchListResponse = await synologyApiClient.FileStationApi.SearchListAsync(searchListRequest, cancellationToken);
 
-Console.WriteLine(searchListUrl);
+Console.WriteLine("FileStation Search List");
 Console.WriteLine(SerializeResponse(searchListResponse));
 
 var searchCleanRequest = new FileStationSearchRequest(
@@ -89,10 +80,9 @@ var searchCleanRequest = new FileStationSearchRequest(
     method: FileStation.Search_Clean,
     taskId: searchStartResponse.Data.TaskId,
     synoToken: loginResponse.Data.SynoToken!);
-var searchCleanUrl = synoApiRequestBuilder.BuildUrl(searchCleanRequest);
-var searchCleanResponse = await synoApiService.GetAsync<FileStationSearchCleanResponse>(searchCleanUrl, cancellationToken);
+var searchCleanResponse = await synologyApiClient.FileStationApi.SearchCleanAsync(searchCleanRequest, cancellationToken);
 
-Console.WriteLine(searchCleanUrl);
+Console.WriteLine("FileStation Search Clean");
 Console.WriteLine(SerializeResponse(searchCleanResponse));
 
 // ------ Foto.Browse.Album
@@ -102,10 +92,9 @@ var fotoBrowseAlbumRequest = new FotoBrowseAlbumRequest(
     offset: 0,
     limit: 10,
     synoToken: loginResponse.Data.SynoToken!);
-var fotoBrowseAlbumUrl = synoApiRequestBuilder.BuildUrl(fotoBrowseAlbumRequest);
-var fotoBrowseAlbumResponse = await synoApiService.GetAsync<FotoBrowseAlbumResponse>(fotoBrowseAlbumUrl, cancellationToken);
+var fotoBrowseAlbumResponse = await synologyApiClient.FotoApi.BrowseAlbumAsync(fotoBrowseAlbumRequest, cancellationToken);
 
-Console.WriteLine(fotoBrowseAlbumUrl);
+Console.WriteLine("Foto Browse Album");
 Console.WriteLine(SerializeResponse(fotoBrowseAlbumResponse));
 
 // ------ FotoTeam.Download
@@ -114,24 +103,21 @@ var fotoTeamDownloadRequest = new FotoTeamDownloadRequest(
     method: FotoTeam.Download_Download,
     unitId: [54828,25276,25245],
     synoToken: loginResponse.Data.SynoToken!);
-var fotoTeamDownloadUrl = synoApiRequestBuilder.BuildUrl(fotoTeamDownloadRequest);
-
-var fotoTeamDownloadResponse = await synoApiService.GetRawResponseAsync(fotoTeamDownloadUrl, cancellationToken);
+var fotoTeamDownloadResponse = await synologyApiClient.FotoTeamApi.DownloadAsync(fotoTeamDownloadRequest, cancellationToken);
 var currentDirectory = Directory.GetCurrentDirectory();
 
 await DownloadHelpers.DownloadImageOrZipFromFotoApi(currentDirectory, fotoTeamDownloadResponse.HttpResponse);
 
-Console.WriteLine(fotoTeamDownloadUrl);
+Console.WriteLine("FotoTeam Download");
 
 // ------ ApiAuth - Logout
 var logoutRequest = new LogoutRequest(
     method: Api.Auth_Logout,
     version: apiInfoResponse.Data.SynoApiAuth.MaxVersion,
     sid: loginResponse.Data.Sid);
-var logoutUrl = synoApiRequestBuilder.BuildUrl(logoutRequest);
-var logoutResponse = await synoApiService.GetAsync<LogoutResponse>(logoutUrl, cancellationToken);
+var logoutResponse = await synologyApiClient.AuthApi.LogoutAsync(logoutRequest, cancellationToken);
 
-Console.WriteLine(logoutUrl);
+Console.WriteLine("Auth Logout");
 Console.WriteLine(SerializeResponse(logoutResponse));
 
 await host.RunAsync();

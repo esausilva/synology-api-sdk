@@ -20,8 +20,7 @@ http://127.0.0.1:5000/webapi/entry.cgi?api=SYNO.FotoTeam.Browse.Item&version=6&m
 ## Implementation
 
 ```csharp
-var synoApiRequestBuilder = services.GetRequiredService<ISynologyApiRequestBuilder>();
-var synoApiService = services.GetRequiredService<ISynologyApiService>();
+var synologyApiClient = services.GetRequiredService<ISynologyApiClient>();
 
 var fotoTeamBrowseItemRequest = new FotoTeamBrowseItemRequest(
     version: 6,
@@ -31,6 +30,5 @@ var fotoTeamBrowseItemRequest = new FotoTeamBrowseItemRequest(
     synoToken: loginResponse.Data.SynoToken!,
     additional: ["thumbnail","folder"],
     folderId: 595);
-var fotoTeamBrowseItemUrl = synoApiRequestBuilder.BuildUrl(fotoTeamBrowseItemRequest);
-var fotoTeamBrowseItemResponse = await synoApiService.GetAsync<FotoTeamBrowseItemResponse>(fotoTeamBrowseItemUrl, cancellationToken);
+var fotoTeamBrowseItemResponse = await synologyApiClient.FotoTeamApi.BrowseItemAsync(fotoTeamBrowseItemRequest, cancellationToken);
 ```
