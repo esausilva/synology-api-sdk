@@ -7,3 +7,4 @@ riderModule.iml
 .idea/**/
 tmp/
 nupkgs/
+TestResults/
