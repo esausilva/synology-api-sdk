@@ -2,8 +2,7 @@ using Synology.Api.Sdk.SynologyApi.Shared.Response;
 
 namespace Synology.Api.Sdk.SynologyApi;
 
-[Obsolete("This interface will be made internal in a future SDK release. Please use ISynologyApiClient instead.")]
-public interface ISynologyApiService
+internal interface ISynologyApiService
 {
     /// <summary>
     /// Sends an asynchronous GET request to the specified URL and retrieves the response.

@@ -29,9 +29,10 @@ dotnet pack src/Synology.Api.Sdk/Synology.Api.Sdk.csproj -c Release
 
 **Request-Response pattern**: Each Synology API endpoint has a sealed Request class (inheriting `RequestBase`) and a sealed Response class (inheriting `ResponseBase`). Requests use `[JsonPropertyName]` attributes for query parameter mapping.
 
-**Two core interfaces**:
-- `ISynologyApiRequestBuilder` — Reflects on request objects to build full API URLs with query strings
-- `ISynologyApiService` — Executes HTTP GET requests; `GetAsync<T>` for JSON responses, `GetRawResponseAsync` for file downloads
+**Core interfaces**:
+- `ISynologyApiClient` — The main entry point to access the different Synology APIs (ApiInfo, Auth, FileStation, Foto, FotoTeam).
+- `ISynologyApiRequestBuilder` (internal) — Reflects on request objects to build full API URLs with query strings
+- `ISynologyApiService` (internal) — Executes HTTP GET requests; `GetAsync<T>` for JSON responses, `GetRawResponseAsync` for file downloads
 
 **DI registration**: `SdkConfigurationExtensions.ConfigureSynologyApiSdkDependencies()` wires up HttpClient with resilience handler, options validation, and configuration binding for `UriBase`.
 
@@ -72,8 +73,8 @@ Test base class `RequestTestsBase` provides a pre-configured `SynologyApiRequest
 3. API calls using `SynoToken` for auth (FileStation, Foto, FotoTeam)
 4. `LogoutRequest` → end session
 
-For file downloads, use `GetRawResponseAsync` + `DownloadHelpers.DownloadImageOrZipFromFotoApi` instead of the typed `GetAsync<T>`.
+For file downloads, use methods returning `RawResponse` (like `DownloadAsync` or `ThumbnailAsync` on the respective clients) + `DownloadHelpers.DownloadImageOrZipFromFotoApi` or `DownloadHelpers.DownloadImageOrZipFromFileStationApi` instead of the typed endpoints returning JSON.
 
 ## CI/CD
 
-GitHub Actions (`ci.yml`) triggers on version tags (`v*.*.*`). Runs tests on .NET 9, then builds and publishes the NuGet package. Sensitive config uses .NET User Secrets (IDs in csproj files).
+GitHub Actions (`ci.yml`) triggers on version tags (`v*.*.*`). Runs tests on .NET 10, then builds and publishes the NuGet package. Sensitive config uses .NET User Secrets (IDs in csproj files).

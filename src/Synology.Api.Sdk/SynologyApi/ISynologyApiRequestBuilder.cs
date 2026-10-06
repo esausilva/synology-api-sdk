@@ -2,8 +2,7 @@ using Synology.Api.Sdk.SynologyApi.Shared.Request;
 
 namespace Synology.Api.Sdk.SynologyApi;
 
-[Obsolete("This interface will be made internal in a future SDK release. Please use ISynologyApiClient instead.")]
-public interface ISynologyApiRequestBuilder
+internal interface ISynologyApiRequestBuilder
 {
     /// <summary>
     /// Constructs a URL by taking a Synology API Request

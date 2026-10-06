@@ -42,7 +42,7 @@ The static method [DownloadHelpers.DownloadImageOrZipFromFileStationApi](../src/
 
 The second argument in the download helper method comes from the response from [FileStationSearchRequest](../src/Synology.Api.Sdk/SynologyApi/FileStation/Request/FileStationSearchRequest.cs) with the `list` method.
 
-You do not have to use this method to download the file, it is only provided for your convenience. [GetRawResponseAsync](../src/Synology.Api.Sdk/SynologyApi/ISynologyApiService.cs) returns [RawResponse](../src/Synology.Api.Sdk/SynologyApi/Shared/Response/RawResponse.cs), which includes the HTTP Response to do with it as you wish.
+You do not have to use this method to download the file, it is only provided for your convenience. `DownloadAsync` returns [RawResponse](../src/Synology.Api.Sdk/SynologyApi/Shared/Response/RawResponse.cs), which includes the HTTP Response to do with it as you wish.
 
 ### Known Limitations
 
@@ -50,7 +50,7 @@ You do not have to use this method to download the file, it is only provided for
 
 The current implementation of `FileStationDownloadRequest` relies on a `GET` request where all requested file paths are serialized into the query string. Synology NAS systems (and many reverse proxies) have a strict limit on the maximum length of a URL. When requesting a large number of files (typically exceeding 50-70 items), the resulting URL may exceed this limit, causing the NAS to return an HTTP 414 error.
 
-While `GetRawResponseAsync` correctly reports the non-successful status code (such as HTTP 414) in its `StatusCode` property and `Success` flag, consumers must still check these values before attempting to process the response body. Failing to do so may lead to treating an HTML error page as a valid ZIP file.
+While `DownloadAsync` correctly reports the non-successful status code (such as HTTP 414) in its `StatusCode` property and `Success` flag, consumers must still check these values before attempting to process the response body. Failing to do so may lead to treating an HTML error page as a valid ZIP file.
 
 #### Recommended Consumer Solution: Chunking
 
