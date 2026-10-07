@@ -1,4 +1,4 @@
-# PROJECT INSTRUCTIONS
+# PROJECT AGENTS
 
 NOTE TO AI: This file is symlinked to CLAUDE.md and GEMINI.md. When modifying this file, preserve all sections, including those intended for other AI tools. Do not overwrite the entire file; only edit relevant sections and specify if the operation is unique to which AI tool.
 
